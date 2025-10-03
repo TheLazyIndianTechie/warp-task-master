@@ -540,18 +540,38 @@ async function setModel(role, modelId, options = {}) {
 						report('warn', warningMessage);
 					}
 				} else if (providerHint === CUSTOM_PROVIDERS.WARP) {
-					// Warp AI provider - check if model exists in our list
+					// Warp AI provider - try to resolve human-readable name to profile ID
 					determinedProvider = CUSTOM_PROVIDERS.WARP;
-					// Re-find modelData specifically for warp provider
+					
+					// Try to import profile mapper to resolve names
+					let resolvedModelId = modelId;
+					try {
+						const { profileNameToId } = await import(
+							'../../../src/ai-providers/custom-sdk/warp/profile-mapper.js'
+						);
+						const profileId = profileNameToId(modelId);
+						if (profileId) {
+							// Successfully resolved human-readable name to profile ID
+							resolvedModelId = profileId;
+							report('info', `Resolved Warp profile name '${modelId}' to ID '${profileId}'.`);
+						}
+					} catch (importError) {
+						// Profile mapper not available, continue with original modelId
+						report('debug', `Could not import profile mapper: ${importError.message}`);
+					}
+					
+					// Re-find modelData specifically for warp provider using resolved ID
 					const warpModels = availableModels.filter(
 						(m) => m.provider === 'warp'
 					);
 					const warpModelData = warpModels.find(
-						(m) => m.id === modelId
+						(m) => m.id === resolvedModelId
 					);
 					if (warpModelData) {
 						// Update modelData to the found warp model
 						modelData = warpModelData;
+						// Update modelId to the resolved profile ID for storage
+						modelId = resolvedModelId;
 						report('info', `Setting Warp AI model '${modelId}'.`);
 					} else {
 						warningMessage = `Warning: Warp AI model '${modelId}' not found in supported models. Setting without validation. Ensure Warp CLI (warp-preview) is installed and accessible.`;

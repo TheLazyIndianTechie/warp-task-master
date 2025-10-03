@@ -3872,6 +3872,77 @@ Examples:
 			return; // Stop execution here
 		});
 
+	// warp-profiles command
+	programInstance
+		.command('warp-profiles')
+		.description('List available Warp AI profiles with human-readable names')
+		.option('--refresh', 'Force refresh the profile cache')
+		.action(async (options) => {
+			try {
+				// Import Warp profile mapper
+				const { listProfiles, clearProfileCache } = await import(
+					'../src/ai-providers/custom-sdk/warp/profile-mapper.js'
+				);
+
+				if (options.refresh) {
+					clearProfileCache();
+					console.log(chalk.blue('Profile cache cleared, fetching fresh data...\n'));
+				}
+
+				const profiles = listProfiles();
+
+				if (!profiles || profiles.length === 0) {
+					console.log(
+						chalk.yellow(
+							'⚠️  No Warp profiles found. Ensure Warp is installed and warp-preview CLI is accessible.'
+						)
+					);
+					return;
+				}
+
+				console.log(chalk.bold.blue('\n🌀 Available Warp AI Profiles:\n'));
+
+				// Display profiles in a table format
+				for (const profile of profiles) {
+					console.log(
+						`${chalk.cyan('Name:')} ${chalk.white.bold(profile.name)}`
+					);
+					console.log(
+						`${chalk.cyan('ID:')}   ${chalk.gray(profile.id)}`
+					);
+					console.log(chalk.gray('─'.repeat(50)));
+				}
+
+				console.log(
+					chalk.blue(
+						'\nℹ️  You can use either the Name or ID when setting Warp models:'
+					)
+				);
+				console.log(
+					chalk.white(
+						'   task-master models --set-main "Default" --warp'
+					)
+				);
+				console.log(
+					chalk.white(
+						'   task-master models --set-main "Sonnet 4.5" --warp'
+					)
+				);
+				console.log(
+					chalk.white(
+						'   task-master models --set-main "GPT-5 + Sonnet 4.5" --warp\n'
+					)
+				);
+			} catch (error) {
+				console.error(
+					chalk.red(
+						`❌ Error fetching Warp profiles: ${error.message}`
+					)
+				);
+				process.exit(1);
+			}
+		});
+
 	// response-language command
 	programInstance
 		.command('lang')
