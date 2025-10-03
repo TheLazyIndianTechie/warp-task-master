@@ -716,7 +716,8 @@ function isApiKeySet(providerName, session = null, projectRoot = null) {
 		CUSTOM_PROVIDERS.BEDROCK,
 		CUSTOM_PROVIDERS.MCP,
 		CUSTOM_PROVIDERS.GEMINI_CLI,
-		CUSTOM_PROVIDERS.GROK_CLI
+		CUSTOM_PROVIDERS.GROK_CLI,
+		CUSTOM_PROVIDERS.WARP
 	];
 
 	if (providersWithoutApiKeys.includes(providerName?.toLowerCase())) {

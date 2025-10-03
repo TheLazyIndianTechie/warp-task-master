@@ -539,6 +539,24 @@ async function setModel(role, modelId, options = {}) {
 						warningMessage = `Warning: Gemini CLI model '${modelId}' not found in supported models. Setting without validation.`;
 						report('warn', warningMessage);
 					}
+				} else if (providerHint === CUSTOM_PROVIDERS.WARP) {
+					// Warp AI provider - check if model exists in our list
+					determinedProvider = CUSTOM_PROVIDERS.WARP;
+					// Re-find modelData specifically for warp provider
+					const warpModels = availableModels.filter(
+						(m) => m.provider === 'warp'
+					);
+					const warpModelData = warpModels.find(
+						(m) => m.id === modelId
+					);
+					if (warpModelData) {
+						// Update modelData to the found warp model
+						modelData = warpModelData;
+						report('info', `Setting Warp AI model '${modelId}'.`);
+					} else {
+						warningMessage = `Warning: Warp AI model '${modelId}' not found in supported models. Setting without validation. Ensure Warp CLI (warp-preview) is installed and accessible.`;
+						report('warn', warningMessage);
+					}
 				} else {
 					// Invalid provider hint - should not happen with our constants
 					throw new Error(`Invalid provider hint received: ${providerHint}`);

@@ -322,7 +322,8 @@ async function runInteractiveSetup(projectRoot) {
 			{ name: '* Custom Ollama model', value: '__CUSTOM_OLLAMA__' },
 			{ name: '* Custom Bedrock model', value: '__CUSTOM_BEDROCK__' },
 			{ name: '* Custom Azure model', value: '__CUSTOM_AZURE__' },
-			{ name: '* Custom Vertex model', value: '__CUSTOM_VERTEX__' }
+			{ name: '* Custom Vertex model', value: '__CUSTOM_VERTEX__' },
+			{ name: '* Custom Warp AI model', value: '__CUSTOM_WARP__' }
 		];
 
 		let choices = [];
@@ -673,16 +674,57 @@ async function runInteractiveSetup(projectRoot) {
 				return true; // Continue setup, but mark as failed
 			}
 
+		console.log(
+			chalk.blue(
+				`Custom Vertex AI model "${modelIdToSet}" will be used. No validation performed.`
+			)
+		);
+	} else if (selectedValue === '__CUSTOM_WARP__') {
+		isCustomSelection = true;
+		const { customId } = await inquirer.prompt([
+			{
+				type: 'input',
+				name: 'customId',
+				message: `Enter the Warp AI Model ID for the ${role} role (e.g., warp:default, warp:reasoning):`,
+				default: 'warp:default'
+			}
+		]);
+		if (!customId) {
+			console.log(chalk.yellow('No custom ID entered. Skipping role.'));
+			return true; // Continue setup, but don't set this role
+		}
+		modelIdToSet = customId;
+		providerHint = CUSTOM_PROVIDERS.WARP;
+
+		// Basic validation: check if Warp CLI is accessible
+		try {
+			const { execSync } = await import('child_process');
+			execSync('warp-preview agent profiles list --format json', {
+				stdio: 'pipe',
+				timeout: 5000
+			});
 			console.log(
 				chalk.blue(
-					`Custom Vertex AI model "${modelIdToSet}" will be used. No validation performed.`
+					`Warp AI model "${modelIdToSet}" will be used. Warp CLI is accessible.`
 				)
 			);
-		} else if (
-			selectedValue &&
-			typeof selectedValue === 'object' &&
-			selectedValue.id
-		) {
+		} catch (error) {
+			console.warn(
+				chalk.yellow(
+					'Warning: Unable to verify Warp CLI. Ensure warp-preview is installed and accessible.'
+				)
+			);
+			console.log(
+				chalk.gray(
+					'Run "warp-preview agent profiles list" to test Warp CLI availability.'
+				)
+			);
+		}
+	} else if (
+		selectedValue &&
+		typeof selectedValue === 'object' &&
+		selectedValue.id
+	) {
 			// Standard model selected from list
 			modelIdToSet = selectedValue.id;
 			providerHint = selectedValue.provider; // Provider is known
@@ -3586,6 +3628,10 @@ ${result.result}
 			'--gemini-cli',
 			'Allow setting a Gemini CLI model ID (use with --set-*)'
 		)
+		.option(
+			'--warp',
+			'Allow setting a Warp AI model ID (use with --set-*)'
+		)
 		.addHelpText(
 			'after',
 			`
@@ -3601,6 +3647,7 @@ Examples:
   $ task-master models --set-main gpt-4o --azure # Set custom Azure OpenAI model for main role
   $ task-master models --set-main claude-3-5-sonnet@20241022 --vertex # Set custom Vertex AI model for main role
   $ task-master models --set-main gemini-2.5-pro --gemini-cli # Set Gemini CLI model for main role
+  $ task-master models --set-main warp:default --warp # Set Warp AI model for main role
   $ task-master models --setup                            # Run interactive setup`
 		)
 		.action(async (options) => {
@@ -3617,12 +3664,13 @@ Examples:
 				options.ollama,
 				options.bedrock,
 				options.claudeCode,
-				options.geminiCli
+				options.geminiCli,
+				options.warp
 			].filter(Boolean).length;
 			if (providerFlags > 1) {
 				console.error(
 					chalk.red(
-						'Error: Cannot use multiple provider flags (--openrouter, --ollama, --bedrock, --claude-code, --gemini-cli) simultaneously.'
+						'Error: Cannot use multiple provider flags (--openrouter, --ollama, --bedrock, --claude-code, --gemini-cli, --warp) simultaneously.'
 					)
 				);
 				process.exit(1);
@@ -3668,7 +3716,9 @@ Examples:
 										? 'claude-code'
 										: options.geminiCli
 											? 'gemini-cli'
-											: undefined
+											: options.warp
+												? 'warp'
+												: undefined
 					});
 					if (result.success) {
 						console.log(chalk.green(`✅ ${result.data.message}`));
@@ -3694,7 +3744,9 @@ Examples:
 										? 'claude-code'
 										: options.geminiCli
 											? 'gemini-cli'
-											: undefined
+											: options.warp
+												? 'warp'
+												: undefined
 					});
 					if (result.success) {
 						console.log(chalk.green(`✅ ${result.data.message}`));
@@ -3722,7 +3774,9 @@ Examples:
 										? 'claude-code'
 										: options.geminiCli
 											? 'gemini-cli'
-											: undefined
+											: options.warp
+												? 'warp'
+												: undefined
 					});
 					if (result.success) {
 						console.log(chalk.green(`✅ ${result.data.message}`));
