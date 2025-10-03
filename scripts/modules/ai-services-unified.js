@@ -50,7 +50,8 @@ import {
 	OpenRouterAIProvider,
 	PerplexityAIProvider,
 	VertexAIProvider,
-	XAIProvider
+	XAIProvider,
+	WarpProvider
 } from '../../src/ai-providers/index.js';
 
 // Import the provider registry
@@ -71,7 +72,7 @@ const PROVIDERS = {
 	vertex: new VertexAIProvider(),
 	'claude-code': new ClaudeCodeProvider(),
 	'gemini-cli': new GeminiCliProvider(),
-	'grok-cli': new GrokCliProvider()
+	'grok-cli': new GrokCliProvider(),	warp: new WarpProvider()
 };
 
 function _getProvider(providerName) {

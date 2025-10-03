@@ -1,123 +1,6 @@
 {
   "master": {
-    "tasks": [
-      {
-        "id": "105",
-        "title": "Create Comprehensive Game Distribution Platform MVP",
-        "description": "Build a complete web application for indie game developers to upload, manage, and distribute their games with integrated payment processing through Dodo Payments API",
-        "details": "Implement a full-stack Next.js 14+ application with: 1) User authentication system using NextAuth.js with GitHub/Google OAuth providers 2) File upload system using AWS S3 or similar for game files (executables, assets) with progress indicators and resume capability 3) Game metadata management (title, description, screenshots, pricing, categories, tags) with rich text editor 4) Dodo Payments integration for payment processing supporting one-time purchases and subscriptions with webhook handling 5) User dashboard for developers to track sales analytics, download statistics, and revenue 6) Public game browse/search interface with filtering and sorting 7) Download system with license key generation for purchased games 8) Review and rating system for games 9) Admin panel for content moderation 10) Responsive design using Tailwind CSS and shadcn/ui components. Tech stack: Next.js 14+, TypeScript, PostgreSQL with Prisma ORM, NextAuth.js, AWS S3, Dodo Payments API, Zustand for state management, React Hook Form for form handling.",
-        "testStrategy": "Comprehensive testing approach including: 1) Unit tests for utility functions and API routes using Jest 2) Integration tests for payment flows with Dodo Payments test mode 3) E2E tests using Playwright for critical user journeys (game upload, purchase flow, download) 4) API testing for all endpoints with proper error handling 5) File upload testing with various file sizes and formats 6) Payment webhook testing with mock data 7) User authentication flow testing 8) Performance testing for file downloads and uploads 9) Security testing for file access controls and payment validation 10) Cross-browser compatibility testing",
-        "priority": "high",
-        "dependencies": [],
-        "status": "in-progress",
-        "subtasks": [
-          {
-            "id": 1,
-            "title": "Research and Document Itch.io API Endpoints",
-            "description": "Review the Itch.io API documentation (https://itch.io/docs/api/serverside and https://itch.io/docs/api/oauth) to identify all relevant endpoints needed for game/asset management. Document the authentication flow, required scopes, API endpoints, request/response formats, and rate limits.",
-            "dependencies": [],
-            "details": "1. Review both serverside API and OAuth documentation from the provided URLs\n2. Create a document listing:\n   - Authentication requirements (API key vs OAuth)\n   - Available endpoints for game upload, asset management, metadata updates\n   - Request/response schemas for each endpoint\n   - Rate limits and usage constraints\n   - Error handling patterns\n3. Identify which endpoints are needed for:\n   - Game creation/upload\n   - File management (assets, builds)\n   - Metadata updates (title, description, tags, pricing)\n   - Version management\n4. Document any limitations or special considerations\n5. Save findings in a structured markdown file (docs/itch-api-research.md)",
-            "status": "done",
-            "testStrategy": "Verify documentation completeness by cross-referencing with official Itch.io API docs. Test understanding by attempting to make sample API calls using curl or Postman.",
-            "parentId": "undefined",
-            "updatedAt": "2025-10-03T08:29:56.659Z"
-          },
-          {
-            "id": 2,
-            "title": "Set Up Itch.io Authentication Module",
-            "description": "Implement authentication handling for Itch.io API, supporting both API key and OAuth2 flows. Create a reusable authentication module that can be integrated into the larger automation system.",
-            "dependencies": [],
-            "details": "1. Create an authentication module (src/auth/itch_auth.js or similar)\n2. Implement API key authentication:\n   - Environment variable for API key storage\n   - Header injection for authenticated requests\n3. Implement OAuth2 flow:\n   - Authorization URL generation\n   - Token exchange handling\n   - Token refresh logic\n   - Secure token storage\n4. Create configuration file for auth settings\n5. Implement error handling for:\n   - Invalid credentials\n   - Expired tokens\n   - Network failures\n6. Add helper functions for:\n   - Token validation\n   - Auth state checking\n   - Credential rotation\n7. Document usage examples and configuration requirements",
-            "status": "done",
-            "testStrategy": "Unit tests for token handling, integration tests for actual API authentication, manual testing of OAuth flow in browser, verification of token refresh mechanism.",
-            "parentId": "undefined",
-            "updatedAt": "2025-10-03T08:37:50.652Z"
-          },
-          {
-            "id": 3,
-            "title": "Build Core API Client with Rate Limiting",
-            "description": "Create a robust API client that handles HTTP requests to Itch.io API with proper rate limiting, retry logic, and error handling. This client will be the foundation for all API interactions.",
-            "dependencies": [],
-            "details": "1. Create base API client class/module (src/api/itch_client.js)\n2. Implement HTTP methods (GET, POST, PUT, DELETE) with:\n   - Authentication header injection\n   - Request body serialization\n   - Response parsing and validation\n3. Add rate limiting:\n   - Token bucket or sliding window algorithm\n   - Configurable rate limits based on API tier\n   - Queue management for requests exceeding limits\n4. Implement retry logic:\n   - Exponential backoff for transient failures\n   - Configurable retry attempts and delays\n   - Specific handling for 429 (rate limit) responses\n5. Add comprehensive error handling:\n   - Network errors\n   - API errors (4xx, 5xx)\n   - Timeout handling\n   - Custom error types for different failure modes\n6. Include request/response logging for debugging\n7. Add request cancellation capability\n8. Create configuration for:\n   - Base URL\n   - Timeout settings\n   - Retry policies\n   - Rate limit thresholds",
-            "status": "done",
-            "testStrategy": "Unit tests for each HTTP method, rate limiting tests with mocked timers, retry logic tests with simulated failures, integration tests against Itch.io sandbox/test environment if available.",
-            "parentId": "undefined",
-            "updatedAt": "2025-10-03T09:18:33.637Z"
-          },
-          {
-            "id": 4,
-            "title": "Implement Game Management Operations",
-            "description": "Build specific API operations for creating, updating, and managing games on Itch.io, including metadata management, file uploads, and version control.",
-            "dependencies": [],
-            "details": "1. Create game management module (src/operations/game_manager.js)\n2. Implement game creation:\n   - Create new game entry with basic metadata\n   - Handle multipart form data for initial setup\n   - Return game ID for subsequent operations\n3. Implement metadata updates:\n   - Title, description, tags\n   - Pricing and availability settings\n   - Platform specifications\n   - Release status (draft, published, etc.)\n4. Implement file upload operations:\n   - Chunked upload for large files\n   - Progress tracking\n   - Resume capability for interrupted uploads\n   - Asset type handling (builds, screenshots, covers)\n5. Implement version management:\n   - Create new game versions\n   - Update version metadata\n   - Version rollback if supported\n6. Add bulk operations:\n   - Batch metadata updates\n   - Multi-file uploads\n7. Create high-level convenience methods:\n   - publishNewRelease()\n   - updateGameDetails()\n   - uploadGameAssets()\n8. Include validation for:\n   - File formats and sizes\n   - Metadata requirements\n   - API constraints\n9. Add progress callbacks for long-running operations",
-            "status": "pending",
-            "testStrategy": "Unit tests for each operation with mocked API responses, integration tests with test game on Itch.io account, end-to-end tests for complete workflow (create -> upload -> publish), file upload tests with various sizes.",
-            "parentId": "undefined"
-          },
-          {
-            "id": 5,
-            "title": "Create CLI Tool and Integration Examples",
-            "description": "Develop a command-line interface tool that demonstrates the library's capabilities and provides a practical way to automate game uploads. Include comprehensive documentation and usage examples.",
-            "dependencies": [],
-            "details": "1. Create CLI entry point (src/cli/index.js or bin/itch-deploy)\n2. Implement command structure:\n   - init: Initialize configuration\n   - auth: Handle authentication flow\n   - create: Create new game\n   - upload: Upload game files\n   - update: Update game metadata\n   - publish: Publish/update game release\n   - list: List user's games\n3. Add CLI features:\n   - Interactive prompts for missing parameters\n   - Configuration file support (.itchrc or similar)\n   - Progress bars for uploads\n   - Colored output for better UX\n   - Verbose/debug mode\n4. Implement configuration management:\n   - Save/load API credentials\n   - Project-specific settings\n   - Environment-based configs\n5. Create example scripts:\n   - Complete deployment workflow\n   - Automated build and upload\n   - Metadata sync from external source\n6. Write comprehensive documentation:\n   - README.md with quick start guide\n   - API documentation\n   - CLI usage examples\n   - Troubleshooting guide\n   - Best practices for automation\n7. Add CI/CD integration examples:\n   - GitHub Actions workflow\n   - GitLab CI configuration\n   - Jenkins pipeline example\n8. Include sample project structure\n9. Update CHANGELOG.md with all implemented features following semantic versioning\n10. Consider packaging for npm/other package managers",
-            "status": "pending",
-            "testStrategy": "Manual CLI testing with various commands and options, integration tests simulating complete deployment workflows, documentation review for clarity and completeness, beta testing with sample project, CI/CD workflow validation in test repository.",
-            "parentId": "undefined"
-          },
-          {
-            "id": 6,
-            "title": "Research and Document itch.io API Requirements",
-            "description": "Study the itch.io OAuth and serverside API documentation to understand authentication flows, available endpoints, data structures, and integration requirements. Document key findings including supported operations, rate limits, and authentication patterns.",
-            "dependencies": [],
-            "details": "Review the itch.io documentation at https://itch.io/docs/api/oauth and https://itch.io/docs/api/serverside to understand:\n- OAuth authentication flow (authorization endpoints, token exchange, refresh tokens)\n- Available API endpoints for game management, downloads, analytics\n- Required scopes and permissions\n- Response formats and data models\n- Rate limiting and error handling\n- API key management and security requirements\n\nCreate a technical specification document outlining:\n- Authentication mechanism to implement\n- API endpoints needed for the integration\n- Data models for games, downloads, purchases\n- Security considerations\n- Rate limit handling strategy",
-            "status": "pending",
-            "testStrategy": "Review documentation completeness with stakeholders and validate understanding against itch.io API examples",
-            "parentId": "undefined"
-          },
-          {
-            "id": 7,
-            "title": "Set Up Node.js Backend Project Structure",
-            "description": "Initialize a Node.js project with TypeScript, set up Express.js server, configure environment variables, and establish the basic project architecture including folder structure, routing setup, and middleware configuration.",
-            "dependencies": [],
-            "details": "1. Initialize Node.js project:\n   - Create project directory and run `npm init`\n   - Install core dependencies: express, typescript, dotenv, axios\n   - Install dev dependencies: @types/node, @types/express, ts-node, nodemon\n   - Configure TypeScript (tsconfig.json) with strict mode\n\n2. Set up project structure:\n   ```\n   src/\n   ├── config/          # Configuration files\n   ├── controllers/     # Route controllers\n   ├── middleware/      # Express middleware\n   ├── models/          # Data models/types\n   ├── routes/          # API routes\n   ├── services/        # Business logic\n   ├── utils/           # Helper functions\n   └── index.ts         # Entry point\n   ```\n\n3. Create .env.example with required variables:\n   - ITCH_CLIENT_ID\n   - ITCH_CLIENT_SECRET\n   - ITCH_REDIRECT_URI\n   - PORT\n   - NODE_ENV\n\n4. Set up basic Express server with:\n   - Error handling middleware\n   - CORS configuration\n   - Request logging\n   - Health check endpoint",
-            "status": "pending",
-            "testStrategy": "Verify server starts successfully, health check endpoint responds, and TypeScript compilation works without errors",
-            "parentId": "undefined"
-          },
-          {
-            "id": 8,
-            "title": "Implement itch.io OAuth Authentication Flow",
-            "description": "Build the complete OAuth authentication system including authorization redirect, callback handling, token storage, and token refresh mechanism. Create service layer for managing authentication state.",
-            "dependencies": [],
-            "details": "1. Create authentication service (src/services/itchAuthService.ts):\n   - Function to generate OAuth authorization URL with required scopes\n   - Callback handler to exchange authorization code for access token\n   - Token refresh mechanism\n   - Secure token storage strategy (consider using encrypted session storage)\n\n2. Implement authentication routes (src/routes/auth.ts):\n   - GET /auth/itch - Redirects to itch.io authorization page\n   - GET /auth/itch/callback - Handles OAuth callback\n   - POST /auth/refresh - Refreshes access token\n   - GET /auth/status - Returns authentication status\n\n3. Create middleware for protected routes (src/middleware/auth.ts):\n   - Verify access token validity\n   - Attach user information to request object\n   - Handle token expiration\n\n4. Implement token management:\n   - Store tokens securely (encrypted sessions or secure cookie)\n   - Track token expiration\n   - Automatic refresh before expiration\n\n5. Add error handling for:\n   - Invalid authorization codes\n   - Token refresh failures\n   - Network errors",
-            "status": "pending",
-            "testStrategy": "Test complete OAuth flow manually, verify token storage/retrieval, test token refresh, validate error scenarios with invalid credentials",
-            "parentId": "undefined"
-          },
-          {
-            "id": 9,
-            "title": "Build itch.io API Integration Layer",
-            "description": "Create service classes for interacting with itch.io API endpoints including game fetching, download information, purchase history, and analytics. Implement proper error handling, rate limiting, and response caching.",
-            "dependencies": [],
-            "details": "1. Create base API client (src/services/itchApiClient.ts):\n   - Axios instance with authentication headers\n   - Rate limiting implementation\n   - Retry logic for failed requests\n   - Response caching strategy\n\n2. Implement game service (src/services/gameService.ts):\n   - Fetch user's games\n   - Get game details by ID\n   - Retrieve game downloads\n   - Access game analytics\n\n3. Implement purchase service (src/services/purchaseService.ts):\n   - Fetch purchase history\n   - Get purchase details\n\n4. Create API routes (src/routes/api.ts):\n   - GET /api/games - List all games\n   - GET /api/games/:id - Get game details\n   - GET /api/games/:id/downloads - Get download stats\n   - GET /api/purchases - List purchases\n\n5. Implement response normalization:\n   - Transform itch.io API responses to consistent format\n   - Handle pagination\n   - Error response standardization\n\n6. Add request validation middleware:\n   - Validate query parameters\n   - Sanitize inputs\n   - Type checking",
-            "status": "pending",
-            "testStrategy": "Unit test each service method with mocked API responses, integration test with actual itch.io API (using test account), verify rate limiting works, test error handling scenarios",
-            "parentId": "undefined"
-          },
-          {
-            "id": 10,
-            "title": "Create Documentation and Testing Infrastructure",
-            "description": "Write comprehensive API documentation, set up automated testing with Jest, create example usage documentation, and establish monitoring/logging infrastructure. Update CHANGELOG.md and ensure project follows documented best practices.",
-            "dependencies": [],
-            "details": "1. Set up testing infrastructure:\n   - Install Jest, supertest, @types/jest\n   - Configure Jest (jest.config.js)\n   - Create test utilities and fixtures\n   - Set up test database/mock services\n\n2. Write comprehensive tests:\n   - Unit tests for all services\n   - Integration tests for API endpoints\n   - Authentication flow tests\n   - Error scenario tests\n   - Achieve >80% code coverage\n\n3. Create API documentation:\n   - Document all endpoints with request/response examples\n   - Authentication setup guide\n   - Environment variables reference\n   - Error codes and handling\n   - Rate limiting information\n\n4. Set up monitoring and logging:\n   - Configure structured logging (Winston or Pino)\n   - Add request/response logging\n   - Error tracking setup\n   - Performance monitoring\n\n5. Create example usage:\n   - Sample client code for common operations\n   - Postman collection for API testing\n   - Integration examples\n\n6. Update project documentation:\n   - README.md with setup instructions\n   - CHANGELOG.md following semantic versioning\n   - Note in README.md about maintaining CHANGELOG.md\n   - Contributing guidelines\n   - Security considerations\n\n7. Implement CI/CD:\n   - GitHub Actions workflow for tests\n   - Linting and type checking\n   - Build verification",
-            "status": "pending",
-            "testStrategy": "Run full test suite and ensure all tests pass, verify documentation accuracy against implementation, test deployment process, validate monitoring dashboards show relevant metrics",
-            "parentId": "undefined"
-          }
-        ],
-        "updatedAt": "2025-10-03T09:18:33.637Z"
-      }
-    ],
+    "tasks": [],
     "metadata": {
       "version": "1.0.0",
       "lastModified": "2025-10-03T09:18:33.637Z",
@@ -125,7 +8,9 @@
       "completedCount": 0,
       "tags": [
         "master"
-      ]
+      ],
+      "created": "2025-10-03T09:22:48.352Z",
+      "description": "Tasks for master context"
     }
   },
   "test-tag": {
