@@ -39,9 +39,10 @@
             "description": "Create a robust API client that handles HTTP requests to Itch.io API with proper rate limiting, retry logic, and error handling. This client will be the foundation for all API interactions.",
             "dependencies": [],
             "details": "1. Create base API client class/module (src/api/itch_client.js)\n2. Implement HTTP methods (GET, POST, PUT, DELETE) with:\n   - Authentication header injection\n   - Request body serialization\n   - Response parsing and validation\n3. Add rate limiting:\n   - Token bucket or sliding window algorithm\n   - Configurable rate limits based on API tier\n   - Queue management for requests exceeding limits\n4. Implement retry logic:\n   - Exponential backoff for transient failures\n   - Configurable retry attempts and delays\n   - Specific handling for 429 (rate limit) responses\n5. Add comprehensive error handling:\n   - Network errors\n   - API errors (4xx, 5xx)\n   - Timeout handling\n   - Custom error types for different failure modes\n6. Include request/response logging for debugging\n7. Add request cancellation capability\n8. Create configuration for:\n   - Base URL\n   - Timeout settings\n   - Retry policies\n   - Rate limit thresholds",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Unit tests for each HTTP method, rate limiting tests with mocked timers, retry logic tests with simulated failures, integration tests against Itch.io sandbox/test environment if available.",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-10-03T09:18:33.637Z"
           },
           {
             "id": 4,
@@ -114,12 +115,12 @@
             "parentId": "undefined"
           }
         ],
-        "updatedAt": "2025-10-03T08:37:50.652Z"
+        "updatedAt": "2025-10-03T09:18:33.637Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-10-03T08:37:50.653Z",
+      "lastModified": "2025-10-03T09:18:33.637Z",
       "taskCount": 1,
       "completedCount": 0,
       "tags": [
