@@ -24,6 +24,7 @@ import {
 import { findConfigPath } from '../../../src/utils/path-utils.js';
 import { log } from '../utils.js';
 import { CUSTOM_PROVIDERS } from '../../../src/constants/providers.js';
+import { profileNameToId, getProfileMap } from '../../../src/ai-providers/custom-sdk/warp/profile-mapper.js';
 
 // Constants
 const CONFIG_MISSING_ERROR =
@@ -427,9 +428,47 @@ async function setModel(role, modelId, options = {}) {
 
 		// --- Revised Logic: Prioritize providerHint --- //
 
-		if (providerHint) {
-			// Hint provided (--ollama or --openrouter flag used)
-			if (modelData && modelData.provider === providerHint) {
+	if (providerHint) {
+			// Special handling for Warp: always convert profile IDs to names
+			if (providerHint === CUSTOM_PROVIDERS.WARP) {
+				// Warp AI provider - validate profile exists but store human-readable name
+				determinedProvider = CUSTOM_PROVIDERS.WARP;
+				
+				// Try to resolve the name/ID to a profile ID
+				report('debug', `Resolving modelId: ${modelId}`);
+				const resolvedProfileId = profileNameToId(modelId);
+				report('debug', `Resolved to profile ID: ${resolvedProfileId}`);
+				
+				if (resolvedProfileId) {
+					// Profile exists - get the human-readable name for storage
+					const profileMap = getProfileMap();
+					const humanName = profileMap[resolvedProfileId];
+					
+					report('debug', `Resolved profile ID: ${resolvedProfileId}, Human name from map: ${humanName}`);
+					
+					if (humanName) {
+						// Store the human-readable name, not the ID
+						modelId = humanName;
+						report('info', `Setting Warp AI profile '${humanName}' (ID: ${resolvedProfileId}).`);
+					} else {
+						// Profile ID exists but no human name - keep the ID
+						report('info', `Setting Warp AI profile ID '${resolvedProfileId}' (no human-readable name found).`);
+					}
+				} else {
+					// Could not resolve - might be invalid
+					const profileMap = getProfileMap();
+					const availableProfiles = Object.entries(profileMap)
+						.map(([id, name]) => `"${name}" (${id})`)
+						.join(', ');
+						
+					warningMessage = `Warning: Warp AI profile '${modelId}' not found. Available profiles: ${availableProfiles}. The profile will be set but may not work until you create it.`;
+					report('warn', warningMessage);
+				}
+				
+				// Note: We intentionally store the human-readable name (modelId) in config,
+				// not the resolved profile ID. This allows each user to have their own
+				// profile with the same name that maps to different IDs.
+			} else if (modelData && modelData.provider === providerHint) {
 				// Found internally AND provider matches the hint
 				determinedProvider = providerHint;
 				report(
@@ -537,44 +576,6 @@ async function setModel(role, modelId, options = {}) {
 						report('info', `Setting Gemini CLI model '${modelId}'.`);
 					} else {
 						warningMessage = `Warning: Gemini CLI model '${modelId}' not found in supported models. Setting without validation.`;
-						report('warn', warningMessage);
-					}
-				} else if (providerHint === CUSTOM_PROVIDERS.WARP) {
-					// Warp AI provider - try to resolve human-readable name to profile ID
-					determinedProvider = CUSTOM_PROVIDERS.WARP;
-					
-					// Try to import profile mapper to resolve names
-					let resolvedModelId = modelId;
-					try {
-						const { profileNameToId } = await import(
-							'../../../src/ai-providers/custom-sdk/warp/profile-mapper.js'
-						);
-						const profileId = profileNameToId(modelId);
-						if (profileId) {
-							// Successfully resolved human-readable name to profile ID
-							resolvedModelId = profileId;
-							report('info', `Resolved Warp profile name '${modelId}' to ID '${profileId}'.`);
-						}
-					} catch (importError) {
-						// Profile mapper not available, continue with original modelId
-						report('debug', `Could not import profile mapper: ${importError.message}`);
-					}
-					
-					// Re-find modelData specifically for warp provider using resolved ID
-					const warpModels = availableModels.filter(
-						(m) => m.provider === 'warp'
-					);
-					const warpModelData = warpModels.find(
-						(m) => m.id === resolvedModelId
-					);
-					if (warpModelData) {
-						// Update modelData to the found warp model
-						modelData = warpModelData;
-						// Update modelId to the resolved profile ID for storage
-						modelId = resolvedModelId;
-						report('info', `Setting Warp AI model '${modelId}'.`);
-					} else {
-						warningMessage = `Warning: Warp AI model '${modelId}' not found in supported models. Setting without validation. Ensure Warp CLI (warp-preview) is installed and accessible.`;
 						report('warn', warningMessage);
 					}
 				} else {
