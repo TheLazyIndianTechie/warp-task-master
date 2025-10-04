@@ -50,11 +50,11 @@ This **experimental** fork adds Warp terminal integration features:
 ### 🛠️ **Enhanced Profile Management**
 ```bash
 # List all your Warp profiles with readable names
-task-master warp-profiles
+warp-task-master warp-profiles
 
 # Set models using human-readable names
-task-master models --set-main "Sonnet 4.5" --warp
-task-master models --set-main "GPT 5 + Sonet 4.5" --warp
+warp-task-master models --set-main "Sonnet 4.5" --warp
+warp-task-master models --set-main "GPT 5 + Sonet 4.5" --warp
 
 # Your config now stores readable names!
 cat .taskmaster/config.json | jq '.models.main.modelId'
@@ -140,10 +140,10 @@ git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
 cd warp-task-master
 npm install
 npm run build
-npm link  # Makes 'task-master' available globally
+npm link  # Makes 'warp-task-master' available globally
 ```
 
-> ⚠️ **Reminder**: This may overwrite/conflict with the original `task-master-ai` if you have it installed.
+> ⚠️ **Reminder**: This uses a separate `warp-task-master` command to avoid conflicts with the original `task-master-ai`.
 
 ### Option B: Use with MCP (Enhanced)
 
@@ -170,17 +170,19 @@ For MCP usage, update your editor config to point to this fork:
 > **Note**: Warp-specific commands require the Warp CLI to be installed first. See [Warp AI Support](#warp-ai-support) section below.
 
 ```bash
-# Check version (should show 1.0.0-beta.1)
-task-master --version
+# Check version (should show 1.0.0-beta.2)
+warp-task-master --version
 
 # Test Warp integration (BETA feature)
-task-master warp-profiles
+warp-task-master warp-profiles
 
 # Set a model with human-readable name (BETA feature)
-task-master models --set-main "Sonnet 4.5" --warp
+warp-task-master models --set-main "Sonnet 4.5" --warp
 ```
 
 > 📝 **Note**: If you see issues, consider using the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master) instead.
+>
+> 💡 **Command Name**: This fork uses `warp-task-master` to avoid conflicts with the original `task-master` command.
 
 ---
 
@@ -206,9 +208,9 @@ MCP (Model Control Protocol) lets you run Task Master directly from your editor.
 ```json
 {
   "mcpServers": {
-    "task-master-ai": {
+    "warp-task-master": {
       "command": "npx",
-      "args": ["-y", "task-master-ai"],
+      "args": ["-y", "warp-task-master"],
       "env": {
         "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
         "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
@@ -235,9 +237,9 @@ MCP (Model Control Protocol) lets you run Task Master directly from your editor.
 ```json
 {
   "servers": {
-    "task-master-ai": {
+    "warp-task-master": {
       "command": "npx",
-      "args": ["-y", "task-master-ai"],
+      "args": ["-y", "warp-task-master"],
       "env": {
         "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
         "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
@@ -260,7 +262,7 @@ MCP (Model Control Protocol) lets you run Task Master directly from your editor.
 
 #### 2. (Cursor-only) Enable Taskmaster MCP
 
-Open Cursor Settings (Ctrl+Shift+J) ➡ Click on MCP tab on the left ➡ Enable task-master-ai with the toggle
+Open Cursor Settings (Ctrl+Shift+J) ➡ Click on MCP tab on the left ➡ Enable warp-task-master with the toggle
 
 #### 3. (Optional) Configure the models you want to use
 
@@ -288,7 +290,7 @@ Initialize taskmaster-ai in my project
 #### 5. Make sure you have a PRD (Recommended)
 
 For **new projects**: Create your PRD at `.taskmaster/docs/prd.txt`  
-For **existing projects**: You can use `scripts/prd.txt` or migrate with `task-master migrate`
+For **existing projects**: You can use `scripts/prd.txt` or migrate with `warp-task-master migrate`
 
 An example PRD template is available after initialization in `.taskmaster/templates/example_prd.txt`.
 
@@ -313,29 +315,29 @@ Use your AI assistant to:
 
 [More examples on how to use Task Master in chat](docs/examples.md)
 
-### Option 2: Using Command Line
+### Option 2: Using Command Line (Warp Fork)
 
 #### Installation
 
 ```bash
-# Install globally
-npm install -g task-master-ai
+# Install Warp fork globally  
+npm install -g https://github.com/TheLazyIndianTechie/warp-task-master.git
 
 # OR install locally within your project
-npm install task-master-ai
+npm install https://github.com/TheLazyIndianTechie/warp-task-master.git
 ```
 
 #### Initialize a new project
 
 ```bash
 # If installed globally
-task-master init
+warp-task-master init
 
 # If installed locally
-npx task-master init
+npx warp-task-master init
 
 # Initialize project with specific rules
-task-master init --rules cursor,windsurf,vscode
+warp-task-master init --rules cursor,windsurf,vscode
 ```
 
 This will prompt you for project details and set up a new project with the necessary files and structure.
@@ -344,33 +346,33 @@ This will prompt you for project details and set up a new project with the neces
 
 ```bash
 # Initialize a new project
-task-master init
+warp-task-master init
 
 # Parse a PRD and generate tasks
-task-master parse-prd your-prd.txt
+warp-task-master parse-prd your-prd.txt
 
 # List all tasks
-task-master list
+warp-task-master list
 
 # Show the next task to work on
-task-master next
+warp-task-master next
 
 # Show specific task(s) - supports comma-separated IDs
-task-master show 1,3,5
+warp-task-master show 1,3,5
 
 # Research fresh information with project context
-task-master research "What are the latest best practices for JWT authentication?"
+warp-task-master research "What are the latest best practices for JWT authentication?"
 
 # Move tasks between tags (cross-tag movement)
-task-master move --from=5 --from-tag=backlog --to-tag=in-progress
-task-master move --from=5,6,7 --from-tag=backlog --to-tag=done --with-dependencies
-task-master move --from=5 --from-tag=backlog --to-tag=in-progress --ignore-dependencies
+warp-task-master move --from=5 --from-tag=backlog --to-tag=in-progress
+warp-task-master move --from=5,6,7 --from-tag=backlog --to-tag=done --with-dependencies
+warp-task-master move --from=5 --from-tag=backlog --to-tag=in-progress --ignore-dependencies
 
 # Generate task files
-task-master generate
+warp-task-master generate
 
 # Add rules after initialization
-task-master rules add windsurf,roo,vscode
+warp-task-master rules add windsurf,roo,vscode
 ```
 
 ## Claude Code Support
@@ -416,24 +418,24 @@ warp-preview login
 
 ```bash
 # List available Warp profiles
-task-master warp-profiles
+warp-task-master warp-profiles
 
 # Set main model to Warp (use human-readable names)
-task-master models --set-main "Sonnet 4.5" --warp
+warp-task-master models --set-main "Sonnet 4.5" --warp
 
 # Or use profile IDs directly (automatically converted to names)
-task-master models --set-main "4SM7QEB6PSpcMwUHEcl6V3" --warp
+warp-task-master models --set-main "4SM7QEB6PSpcMwUHEcl6V3" --warp
 
 # Set research model
-task-master models --set-research "YOLO Code" --warp
+warp-task-master models --set-research "YOLO Code" --warp
 
 # Set fallback model
-task-master models --set-fallback "Default" --warp
+warp-task-master models --set-fallback "Default" --warp
 ```
 
 ### Available Warp Profiles
 
-> **Note**: Profile availability may vary based on your Warp subscription tier. Run `task-master warp-profiles` to see your current profiles.
+> **Note**: Profile availability may vary based on your Warp subscription tier. Run `warp-task-master warp-profiles` to see your current profiles.
 
 | Profile Name | Description | Context Window |
 |--------------|-------------|-----------------|
@@ -446,13 +448,13 @@ task-master models --set-fallback "Default" --warp
 
 ```bash
 # Create tasks using Warp AI
-task-master add-task --prompt "Implement user authentication"
+warp-task-master add-task --prompt "Implement user authentication"
 
 # Parse PRD with Warp AI
-task-master parse-prd your-prd.txt
+warp-task-master parse-prd your-prd.txt
 
 # Research with Warp AI
-task-master research "Latest React patterns for 2024"
+warp-task-master research "Latest React patterns for 2024"
 ```
 
 ### Team Configuration
@@ -477,13 +479,13 @@ Each team member's system automatically resolves "Sonnet 4.5" to their local War
 
 ```bash
 # List all available profiles
-task-master warp-profiles
+warp-task-master warp-profiles
 
 # Refresh profile cache
-task-master warp-profiles --refresh
+warp-task-master warp-profiles --refresh
 
 # Check current model configuration
-task-master models
+warp-task-master models
 ```
 
 ### Troubleshooting
@@ -492,23 +494,23 @@ task-master models
 
 **Authentication Failed**: Run `warp-preview login` and ensure you have an active subscription
 
-**Profile Not Found**: Use `task-master warp-profiles` to see available profiles
+**Profile Not Found**: Use `warp-task-master warp-profiles` to see available profiles
 
 ## Troubleshooting
 
-### If `task-master init` doesn't respond
+### If `warp-task-master init` doesn't respond
 
 Try running it with Node directly:
 
 ```bash
-node node_modules/claude-task-master/scripts/init.js
+node node_modules/warp-task-master/scripts/init.js
 ```
 
 Or clone the repository and run:
 
 ```bash
-git clone https://github.com/eyaltoledano/claude-task-master.git
-cd claude-task-master
+git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
+cd warp-task-master
 node scripts/init.js
 ```
 

@@ -4,6 +4,24 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
+## 1.0.0-beta.2 - Executable Rename for Conflict Avoidance
+
+**🔧 BREAKING CHANGE: Executable renamed to avoid conflicts with original task-master-ai**
+
+### Changed
+- **BREAKING**: Renamed executable from `task-master` to `warp-task-master` to avoid conflicts with original task-master-ai
+- **BREAKING**: Renamed MCP server executable from `task-master-mcp` to `warp-task-master-mcp`
+- Updated all documentation to use new command names
+- Updated MCP configuration examples to use "warp-task-master" server name
+- Updated CLI usage examples throughout README.md
+- Removed `task-master-ai` alias to avoid confusion
+
+### Migration Guide
+- Replace all instances of `task-master` command with `warp-task-master`
+- Replace all instances of `task-master-mcp` command with `warp-task-master-mcp`
+- Update MCP server configuration from "task-master-ai" to "warp-task-master"
+- Both original task-master-ai and warp-task-master can now be installed simultaneously without conflicts
+
 ## 1.0.0-beta.1 - Initial Beta Release
 
 **🧪 BETA: First experimental release of the Warp-enhanced Task Master fork!**
