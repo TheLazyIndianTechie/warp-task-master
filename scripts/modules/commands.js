@@ -295,7 +295,7 @@ async function runInteractiveSetup(projectRoot) {
 	}
 
 	// Helper to get choices and default index for a role
-	const getPromptData = (role, allowNone = false) => {
+	const getPromptData = async (role, allowNone = false) => {
 		const currentModel = currentModels[role]; // Use the fetched data
 		const allModelsRaw = getAvailableModels(); // Get all available models
 
@@ -316,7 +316,27 @@ async function runInteractiveSetup(projectRoot) {
 				}
 			: null;
 
-		// Define custom provider options
+		// Try to get Warp profiles and create Warp options
+		let warpOptions = [];
+		try {
+			const { getProfileMap } = await import('../../../src/ai-providers/custom-sdk/warp/profile-mapper.js');
+			const profileMap = getProfileMap();
+			
+			warpOptions = Object.entries(profileMap).map(([id, name]) => ({
+				name: `Warp AI / ${name} ${chalk.gray('(AI Integrated Terminal)')}`,
+				value: { id: `warp:${name.toLowerCase().replace(/\s+/g, '-')}`, provider: CUSTOM_PROVIDERS.WARP },
+				short: `Warp/${name}`
+			}));
+		} catch (error) {
+			// Fallback to basic Warp option if profile fetching fails
+			warpOptions = [{
+				name: `Warp AI / Default ${chalk.gray('(AI Integrated Terminal)')}`,
+				value: { id: 'warp:default', provider: CUSTOM_PROVIDERS.WARP },
+				short: 'Warp/Default'
+			}];
+		}
+
+		// Define custom provider options (keep Custom Warp for advanced users)
 		const customProviderOptions = [
 			{ name: '* Custom OpenRouter model', value: '__CUSTOM_OPENROUTER__' },
 			{ name: '* Custom Ollama model', value: '__CUSTOM_OLLAMA__' },
@@ -353,10 +373,13 @@ async function runInteractiveSetup(projectRoot) {
 			.filter(Boolean)
 			.flat();
 
+		// Combine standard models with Warp options for Standard Models section
+		const allStandardChoices = [...roleChoices, ...warpOptions];
+
 		// Find the index of the currently selected model for setting the default
 		let currentChoiceIndex = -1;
 		if (currentModel?.modelId && currentModel?.provider) {
-			currentChoiceIndex = roleChoices.findIndex(
+			currentChoiceIndex = allStandardChoices.findIndex(
 				(choice) =>
 					typeof choice.value === 'object' &&
 					choice.value.id === currentModel.modelId &&
@@ -378,7 +401,7 @@ async function runInteractiveSetup(projectRoot) {
 				...systemOptions,
 				new inquirer.Separator('\n── Standard Models ──'),
 				{ name: '⚪ None (disable)', value: null },
-				...roleChoices,
+				...allStandardChoices,
 				new inquirer.Separator('\n── Custom Providers ──'),
 				...customProviderOptions
 			];
@@ -392,7 +415,7 @@ async function runInteractiveSetup(projectRoot) {
 			choices = [
 				...systemOptions,
 				new inquirer.Separator('\n── Standard Models ──'),
-				...roleChoices,
+				...allStandardChoices,
 				new inquirer.Separator('\n── Custom Providers ──'),
 				...customProviderOptions
 			];
@@ -418,9 +441,9 @@ async function runInteractiveSetup(projectRoot) {
 	};
 
 	// --- Generate choices using the helper ---
-	const mainPromptData = getPromptData('main');
-	const researchPromptData = getPromptData('research');
-	const fallbackPromptData = getPromptData('fallback', true); // Allow 'None' for fallback
+	const mainPromptData = await getPromptData('main');
+	const researchPromptData = await getPromptData('research');
+	const fallbackPromptData = await getPromptData('fallback', true); // Allow 'None' for fallback
 
 	// Display helpful intro message
 	console.log(chalk.cyan('\n🎯 Interactive Model Setup'));

@@ -4,6 +4,41 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
+## 1.0.0-beta.3 - Warp AI Integration UX Improvements
+
+**🎯 MAJOR UX ENHANCEMENT: Warp AI features are now prominently discoverable!**
+
+### Enhanced
+#### **Interactive Model Setup**
+- **FIXED**: Warp AI profiles now appear as primary options in "Standard Models" section instead of being buried in "Custom Providers"
+- **DYNAMIC PROFILES**: Interactive setup now dynamically loads all available Warp profiles using the profile mapper
+- **CLEAR LABELING**: Warp options now show as "Warp AI / [Profile Name] (AI Integrated Terminal)" for better recognition
+- **FALLBACK SUPPORT**: Graceful fallback to basic Warp option if profile fetching fails
+
+#### **Help System Documentation**
+- **NEW SECTION**: Added dedicated "Warp AI Integration" section to main help output
+- **KEY COMMANDS**: Prominently displays three essential Warp commands:
+  - `warp-profiles` - List available Warp AI profiles and usage examples
+  - `models --warp --set-main <profile>` - Configure Warp AI models
+  - `models --setup` - Interactive setup now includes Warp AI profiles as standard options
+- **ENHANCED QUICK START**: Updated Quick Start section with "Warp AI Features" subsection and specific examples
+- **COMMAND PREFIX**: All examples now use proper `warp-task-master` command prefix
+
+### Technical Implementation
+- **ASYNC PROFILE LOADING**: Enhanced `getPromptData()` function to be async and dynamically import Warp profile mapper
+- **PROFILE INTEGRATION**: Leverages existing Warp profile system for dynamic profile discovery
+- **MAINTAINED COMPATIBILITY**: All existing functionality preserved while adding new features
+
+### Why This Matters
+- **DISCOVERABILITY**: Users can now easily find and configure Warp AI features without hunting through menus
+- **ONBOARDING**: New users immediately see Warp AI as a first-class option during setup
+- **DOCUMENTATION**: Clear help documentation explains how to use Warp-specific features
+- **VALUE PROPOSITION**: The key differentiating features of this fork are now prominently displayed
+
+**Migration**: No action required - this is a UX enhancement that improves existing workflows
+
+---
+
 ## 1.0.0-beta.2 - Executable Rename for Conflict Avoidance ✅ **PUBLISHED TO NPM**
 
 **🚀 NPM PUBLICATION STATUS:**

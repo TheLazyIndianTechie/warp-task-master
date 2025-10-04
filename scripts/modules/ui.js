@@ -757,8 +757,29 @@ function displayHelp() {
 			]
 		},
 		{
-			title: 'Dependency Management',
+			title: 'Warp AI Integration',
 			color: 'blue',
+			commands: [
+				{
+					name: 'warp-profiles',
+					args: '',
+					desc: 'List available Warp AI profiles and their usage examples'
+				},
+				{
+					name: 'models --warp',
+					args: '--set-main <profile>',
+					desc: 'Configure Warp AI models (e.g., warp:default, warp:reasoning)'
+				},
+				{
+					name: 'models --setup',
+					args: '',
+					desc: 'Interactive setup now includes Warp AI profiles as standard options'
+				}
+			]
+		},
+		{
+			title: 'Dependency Management',
+			color: 'magenta',
 			commands: [
 				{
 					name: 'add-dependency',
@@ -906,19 +927,29 @@ function displayHelp() {
 			chalk.white.bold('Quick Start:') +
 				'\n\n' +
 				chalk.cyan('1. Create Project: ') +
-				chalk.white('task-master init') +
+				chalk.white('warp-task-master init') +
 				'\n' +
 				chalk.cyan('2. Setup Models: ') +
-				chalk.white('task-master models --setup') +
+				chalk.white('warp-task-master models --setup') +
+				' ' +
+				chalk.gray('(Warp AI now featured!)') +
 				'\n' +
 				chalk.cyan('3. Parse PRD: ') +
-				chalk.white('task-master parse-prd --input=<prd-file>') +
+				chalk.white('warp-task-master parse-prd --input=<prd-file>') +
 				'\n' +
 				chalk.cyan('4. List Tasks: ') +
-				chalk.white('task-master list') +
+				chalk.white('warp-task-master list') +
 				'\n' +
 				chalk.cyan('5. Find Next Task: ') +
-				chalk.white('task-master next'),
+				chalk.white('warp-task-master next') +
+				'\n\n' +
+				chalk.blue.bold('Warp AI Features:') +
+				'\n' +
+				chalk.cyan('• View Profiles: ') +
+				chalk.white('warp-task-master warp-profiles') +
+				'\n' +
+				chalk.cyan('• Set Warp Model: ') +
+				chalk.white('warp-task-master models --set-main warp:default --warp'),
 			{
 				padding: 1,
 				borderColor: 'yellow',
