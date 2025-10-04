@@ -1,46 +1,83 @@
 # Development files
-.git
-.github
-.vscode
-.idea
+.git/
+.github/
+.vscode/
+.cursor/
+.idea/
 .DS_Store
+*.swp
+*.swo
+*~
+
+# Environment files
+.env*
+!.env.example
 
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 dev-debug.log
 init-debug.log
 
 # Source files not needed in the package
-src
-test
-tests
-docs
-examples
+src/
+test/
+tests/
+__tests__/
+docs/
+examples/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Build and config files
+tsconfig.json
+tsdown.config.ts
+jest.config.js
+turbo.json
+.changesets/
+.biomejs/
+biome.json
 .editorconfig
-.eslintrc
-.prettierrc
+.eslintrc*
+.prettierrc*
 .travis.yml
 .gitlab-ci.yml
-tsconfig.json
-jest.config.js
 
-# Original project files
+# Project-specific exclusions
+.taskmaster/
 tasks.json
 tasks/
 prd.txt
 scripts/prd.txt
-.env 
+
+# Build artifacts
+node_modules/
+coverage/
+.nyc_output/
+*.tgz
+dist/*.map
+
+# Lock files (let users choose package manager)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+
+# Documentation (keep only essential ones)
+*.md
+!README.md
+!CHANGELOG.md
 
 # Temporary files
-.tmp
-.temp
-*.swp
-*.swo
+.tmp/
+.temp/
+*.debug
 
-# Node modules
-node_modules/
-
-# Debug files
-*.debug 
+# OS files
+Thumbs.db
+ehthumbs.db
+.Spotlight-V100
+.Trashes
