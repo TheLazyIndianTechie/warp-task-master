@@ -1,7 +1,7 @@
 {
 	"name": "warp-task-master",
-	"version": "1.0.0",
-	"description": "Enhanced Task Master with Warp AI integration and human-readable profile names. A fork of task-master-ai with seamless Warp terminal integration.",
+	"version": "1.0.0-beta.1",
+	"description": "BETA: Experimental Task Master fork with Warp AI integration and human-readable profile names. For production use, see task-master-ai.",
 	"main": "index.js",
 	"type": "module",
 	"bin": {

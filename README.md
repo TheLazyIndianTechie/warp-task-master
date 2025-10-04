@@ -1,6 +1,8 @@
 <a name="readme-top"></a>
 
-> 🚀 **ENHANCED FORK**: This is `warp-task-master`, an enhanced version of [task-master-ai](https://github.com/eyaltoledano/claude-task-master) with **seamless Warp AI integration** and **human-readable profile names**. All original features preserved + powerful Warp enhancements!
+> ⚠️ **BETA WARNING**: This is `warp-task-master`, a **BETA** custom fork of [task-master-ai](https://github.com/eyaltoledano/claude-task-master) with experimental Warp AI integration. **Use at your own risk!**
+> 
+> 🔗 **Want the original stable version?** → [task-master-ai](https://github.com/eyaltoledano/claude-task-master) by [@eyaltoledano](https://github.com/eyaltoledano)
 
 <div align='center'>
 <a href="https://github.com/TheLazyIndianTechie/warp-task-master" target="_blank"><img src="https://img.shields.io/badge/Enhanced-Warp%20Fork-blue?style=for-the-badge&logo=warp&logoColor=white" alt="Warp Enhanced Fork" /></a>
@@ -11,8 +13,13 @@
 </p>
 
 <p align="center">
-<b>Warp Task Master</b>: Enhanced task management system with seamless Warp AI integration and human-readable profile names.
+<b>Warp Task Master (BETA)</b>: Experimental custom task management system with Warp AI integration and human-readable profile names.
 </p>
+
+<div align="center">
+<strong>⚠️ BETA SOFTWARE - EXPERIMENTAL FEATURES ⚠️</strong><br>
+<a href="https://github.com/eyaltoledano/claude-task-master">Looking for the stable original? Click here →</a>
+</div>
 
 <p align="center">
   <a href="https://discord.gg/taskmasterai" target="_blank"><img src="https://dcbadge.limes.pink/api/server/https://discord.gg/taskmasterai?style=flat" alt="Discord"></a> |
@@ -32,9 +39,11 @@
   <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/dw/task-master-ai?style=flat" alt="NPM Downloads"></a>
 </p>
 
-## 🌟 Warp AI Enhancements
+## 🌟 Warp AI Enhancements (BETA)
 
-This fork adds powerful Warp terminal integration features:
+> ⚠️ **EXPERIMENTAL**: These features are in beta testing. For production use, consider the [original stable task-master-ai](https://github.com/eyaltoledano/claude-task-master).
+
+This **experimental** fork adds Warp terminal integration features:
 
 ### ✨ **Human-Readable Profile Names**
 - 👍 **Problem Solved**: No more cryptic profile IDs like `4SM7QEB6PSpcMwUHEcl6V3` in your config files
@@ -116,23 +125,29 @@ At least one (1) of the following is required:
 
 Using the research model is optional but highly recommended. You will need at least ONE API key (unless using Claude Code or Warp AI). Adding all API keys enables you to seamlessly switch between model providers at will.
 
-## 📦 Installation (Warp Enhanced Fork)
+## 📦 Installation (BETA - Warp Enhanced Fork)
 
-> 🚨 **Important**: This is the installation for the **Warp-enhanced fork**. For the original task-master-ai, see the [original repository](https://github.com/eyaltoledano/claude-task-master).
+> 🚨 **BETA SOFTWARE WARNING**: This is **experimental software** with potential bugs and instability. 
+> 
+> 🔒 **For production use**: Install the stable [original task-master-ai](https://github.com/eyaltoledano/claude-task-master) instead.
+> 
+> 🧪 **Proceed only if**: You want to test experimental Warp AI features and understand the risks.
 
-### Option A: Install from GitHub (Recommended)
+### Option A: Install from GitHub (BETA - Use at Your Own Risk)
 
 ```bash
-# Install globally from GitHub
+# ⚠️  BETA SOFTWARE - Install globally from GitHub
 npm install -g https://github.com/TheLazyIndianTechie/warp-task-master.git
 
-# Or clone and install locally for development
+# Or clone and install locally for development/testing
 git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
 cd warp-task-master
 npm install
 npm run build
 npm link  # Makes 'task-master' available globally
 ```
+
+> ⚠️ **Reminder**: This may overwrite/conflict with the original `task-master-ai` if you have it installed.
 
 ### Option B: Use with MCP (Enhanced)
 
@@ -157,15 +172,17 @@ For MCP usage, update your editor config to point to this fork:
 ### ✅ Verify Installation
 
 ```bash
-# Check version (should show 1.0.0)
+# Check version (should show 1.0.0-beta.1)
 task-master --version
 
-# Test Warp integration
+# Test Warp integration (BETA feature)
 task-master warp-profiles
 
-# Set a model with human-readable name
+# Set a model with human-readable name (BETA feature)
 task-master models --set-main "Sonnet 4.5" --warp
 ```
+
+> 📝 **Note**: If you see issues, consider using the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master) instead.
 
 ---
 

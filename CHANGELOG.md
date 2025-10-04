@@ -1,10 +1,12 @@
-# warp-task-master
+# warp-task-master (BETA)
 
-*Enhanced Task Master with seamless Warp AI integration*
+*Experimental Task Master fork with Warp AI integration*
 
-## 1.0.0 - Fork Release
+> ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
-**🎉 Initial release of the Warp-enhanced Task Master fork!**
+## 1.0.0-beta.1 - Initial Beta Release
+
+**🧪 BETA: First experimental release of the Warp-enhanced Task Master fork!**
 
 This is an enhanced version of [task-master-ai](https://github.com/eyaltoledano/claude-task-master) with specialized Warp terminal integration and human-readable profile management.
 
@@ -35,13 +37,15 @@ This is an enhanced version of [task-master-ai](https://github.com/eyaltoledano/
   - Moved Warp profile resolution to execute before general model lookup
   - Enhanced model configuration system to prioritize Warp-specific logic
 
-### 📦 Installation
+### 📦 Installation (BETA)
+
+> ⚠️ **Warning**: Beta software with potential instability. For production, use [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
 ```bash
-# Install from GitHub
+# Install BETA from GitHub
 npm install -g TheLazyIndianTechie/warp-task-master
 
-# Or clone and install locally
+# Or clone and install locally for testing
 git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
 cd warp-task-master
 npm install
@@ -49,16 +53,18 @@ npm run build
 npm link
 ```
 
-### 🚀 Quick Start with Warp AI
+### 🚀 Quick Start with Warp AI (BETA)
+
+> 🧪 **Testing**: These are experimental features - report issues on GitHub!
 
 ```bash
-# List available Warp profiles
+# List available Warp profiles (BETA)
 task-master warp-profiles
 
-# Set a Warp profile using human-readable name
+# Set a Warp profile using human-readable name (BETA)
 task-master models --set-main "Sonnet 4.5" --warp
 
-# Verify your config stores the readable name
+# Verify your config stores the readable name (BETA)
 cat .taskmaster/config.json | jq '.models.main'
 # Output: {"provider": "warp", "modelId": "Sonnet 4.5", ...}
 ```

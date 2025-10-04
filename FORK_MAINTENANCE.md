@@ -1,8 +1,10 @@
-# Fork Maintenance Strategy
+# Fork Maintenance Strategy (BETA)
 
 ## Overview
 
-This document outlines the maintenance strategy for the `warp-task-master` fork of the original [task-master-ai](https://github.com/eyaltoledano/claude-task-master) project.
+> ⚠️ **BETA STATUS**: This fork is currently in beta with experimental features. For production use, consider the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
+
+This document outlines the maintenance strategy for the `warp-task-master` BETA fork of the original [task-master-ai](https://github.com/eyaltoledano/claude-task-master) project.
 
 ## Fork Philosophy
 
@@ -38,9 +40,10 @@ This document outlines the maintenance strategy for the `warp-task-master` fork 
 
 ### 3. Version Strategy
 
-- **Major Versions**: Independent of upstream (current: 1.x.x)
-- **Minor Versions**: New Warp features or significant upstream merges
-- **Patch Versions**: Bug fixes and small improvements
+- **Beta Versions**: Current phase - experimental features (current: 1.0.0-beta.x)
+- **Stable Releases**: Will begin after beta testing completes (future: 1.0.0+)
+- **Major Versions**: Independent of upstream for stable releases
+- **Minor/Patch**: New Warp features, upstream merges, and bug fixes
 
 ## Contribution Guidelines
 
