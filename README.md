@@ -16,10 +16,6 @@
 <b>Warp Task Master (BETA)</b>: Experimental custom task management system with Warp AI integration and human-readable profile names.
 </p>
 
-<div align="center">
-<strong>⚠️ BETA SOFTWARE - EXPERIMENTAL FEATURES ⚠️</strong><br>
-<a href="https://github.com/eyaltoledano/claude-task-master">Looking for the stable original? Click here →</a>
-</div>
 
 <p align="center">
   <a href="https://discord.gg/taskmasterai" target="_blank"><img src="https://dcbadge.limes.pink/api/server/https://discord.gg/taskmasterai?style=flat" alt="Discord"></a> |
@@ -170,6 +166,8 @@ For MCP usage, update your editor config to point to this fork:
 ```
 
 ### ✅ Verify Installation
+
+> **Note**: Warp-specific commands require the Warp CLI to be installed first. See [Warp AI Support](#warp-ai-support) section below.
 
 ```bash
 # Check version (should show 1.0.0-beta.1)
@@ -434,6 +432,8 @@ task-master models --set-fallback "Default" --warp
 ```
 
 ### Available Warp Profiles
+
+> **Note**: Profile availability may vary based on your Warp subscription tier. Run `task-master warp-profiles` to see your current profiles.
 
 | Profile Name | Description | Context Window |
 |--------------|-------------|-----------------|

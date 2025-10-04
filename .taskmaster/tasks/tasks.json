@@ -102,7 +102,9 @@
         "details": "Implement dependency graph management using efficient data structures to support large graphs (500+ tasks). Integrate with Taskmaster MCP commands to fetch and monitor task dependencies and tags. Implement circular dependency detection algorithms. Use event-driven notifications for dependency status changes. Optimize for sub-second response times. Cache dependency data for performance.",
         "testStrategy": "Unit test dependency graph operations and circular dependency detection. Integration test with Taskmaster MCP mock server. Performance test with large dependency graphs. Validate event notifications on dependency changes.",
         "priority": "high",
-        "dependencies": [],
+        "dependencies": [
+          1
+        ],
         "status": "pending",
         "subtasks": [
           {
@@ -171,7 +173,9 @@
         "details": "Use a priority queue data structure to manage task execution order. Support up to 10 concurrent tasks with resource reservation and conflict detection. Integrate with Taskmaster MCP commands for task execution, cancellation, and status updates. Implement timeout and cancellation logic. Persist execution history in SQLite for analytics. Provide APIs for querying execution status and history.",
         "testStrategy": "Unit test queue management, priority scheduling, and concurrency control. Integration test with Taskmaster MCP commands. Simulate resource conflicts and timeouts. Verify execution history persistence and retrieval.",
         "priority": "high",
-        "dependencies": [],
+        "dependencies": [
+          1
+        ],
         "status": "pending",
         "subtasks": [
           {
@@ -305,7 +309,9 @@
         "details": "Integrate with Kiro's file watcher for file system monitoring. Use Taskmaster MCP API to detect task status changes. Integrate Git event listeners for commits, branch changes, and merges. Connect to build system events for test and compilation results. Implement configurable event filters and pattern matching. Use debouncing and batching to optimize performance under high-frequency events.",
         "testStrategy": "Unit test event filtering, debouncing, and batching logic. Integration test with simulated file system, Git, and build events. Verify correct triggering of hooks and task execution.",
         "priority": "medium",
-        "dependencies": [],
+        "dependencies": [
+          1
+        ],
         "status": "pending",
         "subtasks": [
           {
@@ -367,7 +373,9 @@
         "details": "Integrate with Kiro's agent communication system to intercept prompts. Analyze conversation content using natural language processing to suggest relevant tasks. Inject task context dynamically into AI conversations. Update task statuses based on agent responses. Implement relevance scoring and context-aware filtering for task suggestions.",
         "testStrategy": "Unit test prompt interception and context injection. Use mock AI conversations to validate task suggestion accuracy. Integration test with Kiro agent communication system. Verify task status updates triggered by prompts.",
         "priority": "medium",
-        "dependencies": [],
+        "dependencies": [
+          1
+        ],
         "status": "pending",
         "subtasks": [
           {
@@ -433,7 +441,9 @@
         "details": "Monitor code changes via file system and version control integration. Track implementation progress and milestones automatically. Validate task acceptance criteria and mark completion. Propagate status updates through dependency chains. Detect and resolve conflicts in task updates. Integrate with version control systems for change tracking.",
         "testStrategy": "Unit test progress tracking and acceptance validation logic. Integration test with version control events and Taskmaster MCP updates. Simulate conflict scenarios and verify resolution mechanisms.",
         "priority": "medium",
-        "dependencies": [],
+        "dependencies": [
+          1
+        ],
         "status": "pending",
         "subtasks": [
           {
@@ -1487,7 +1497,9 @@
         "details": "Create a function in the StartCommand class that builds the standardized prompt with the actual task data (title, description, details) instead of instructing Claude to run 'tm show'.\n\n```typescript\nprivate buildPrompt(task: Task): string {\n  return `You are an AI coding assistant with access to this repository's codebase.\n\nHere are the task details to implement:\n\nTask ID: ${task.id}\nTitle: ${task.title}\nDescription: ${task.description}\nDetails: ${task.details}\n\nImplement the task with these requirements:\n- Make the SMALLEST number of code changes possible\n- Follow ALL existing patterns in the codebase (you have access to analyze the code)\n- Do NOT over-engineer the solution\n- Use existing files/functions/patterns wherever possible\n- When complete, print: COMPLETED: <brief summary of changes>\n\nPlease implement this task now.`;\n}\n```\n<info added on 2025-09-12T02:40:01.812Z>\nThe prompt builder function will handle task context retrieval by instructing Claude to use the task-master show command. This approach ensures Claude has access to all necessary task details before implementation begins. The command syntax \"tm show ${taskId}\" embedded in the prompt will direct Claude to first gather the complete task context, including description, requirements, and any existing implementation details, before proceeding with code changes.\n</info added on 2025-09-12T02:40:01.812Z>\n\n<info added>\nThe updated approach eliminates the need for Claude to run 'tm show' by directly providing the task details in the prompt. The function now takes a Task object instead of just the task ID, allowing it to include the complete task information directly in the prompt.\n</info added>",
         "testStrategy": "Verify the prompt is correctly formatted by calling the function with a sample task object and checking that the output includes all the task details (ID, title, description, details) properly inserted into the template.",
         "priority": "medium",
-        "dependencies": [],
+        "dependencies": [
+          1
+        ],
         "status": "done",
         "subtasks": []
       },

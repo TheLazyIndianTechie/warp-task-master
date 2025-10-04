@@ -16,13 +16,14 @@ This document outlines the maintenance strategy for the `warp-task-master` BETA 
 
 ### 1. Upstream Monitoring
 
-- **Weekly Check**: Review upstream changes from `eyaltoledano/claude-task-master`
+- **Regular Check**: Periodically review upstream changes from `eyaltoledano/claude-task-master`
 - **Security Updates**: Always merge critical security fixes
 - **Feature Evaluation**: Assess new features for compatibility with Warp enhancements
 
 ### 2. Update Strategy
 
-#### Automatic Merges
+#### Priority Merges (Fast-Track)
+These changes receive expedited review and testing, but still require validation before merging:
 - Security patches
 - Bug fixes that don't affect Warp functionality
 - Documentation improvements (with fork-specific adjustments)
@@ -77,6 +78,13 @@ git cherry-pick <commit-hash>
 
 # Or merge upstream changes (use with caution)
 git merge upstream/main
+
+# Check if merge would create conflicts (without actually merging)
+git merge --no-commit --no-ff upstream/main
+git merge --abort  # if you just want to check
+
+# Abort a merge if conflicts arise
+git merge --abort
 ```
 
 ## Release Process
@@ -87,6 +95,16 @@ git merge upstream/main
 4. **Test Warp Features**: Verify all Warp profiles work
 5. **Commit & Tag**: Create release commit and git tag
 6. **Push**: Push changes and tags to GitHub
+7. **Publish (if applicable)**: Run `npm publish --access public` to publish to npm registry
+8. **Verify**: Confirm package installation works: `npm install warp-task-master@latest`
+
+### Rollback Procedure
+
+If a release has critical issues:
+
+1. **Unpublish (within 72 hours)**: `npm unpublish warp-task-master@<version>`
+2. **Delete Tag**: `git tag -d <version> && git push origin :refs/tags/<version>`
+3. **Deprecate (after 72 hours)**: `npm deprecate warp-task-master@<version> "Critical bug, use <previous-version> instead"`
 
 ## Contact
 

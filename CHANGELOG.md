@@ -73,7 +73,7 @@ cat .taskmaster/config.json | jq '.models.main'
 
 ## Based on task-master-ai v0.27.4
 
-*This fork is based on the excellent work by [Eyal Toledano](https://github.com/eyaltoledano) and the task-master-ai project. All original features and capabilities are preserved.*
+*This fork is based on the excellent work by [Eyal Toledano](https://github.com/eyaltoledano) and the task-master-ai project. All original features and capabilities are preserved. The fork includes all features through v0.27.4, with preserved changelog history starting from v0.27.3 below.*
 
 ## 0.27.3
 
