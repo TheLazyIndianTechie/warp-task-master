@@ -2,13 +2,13 @@
   "models": {
     "main": {
       "provider": "warp",
-      "modelId": "4SM7QEB6PSpcMwUHEcl6V3",
+      "modelId": "Sonnet 4.5",
       "maxTokens": 100000,
       "temperature": 0.2
     },
     "research": {
       "provider": "warp",
-      "modelId": "eOGia6hxKDujsDTKOn3qwh",
+      "modelId": "reasoning",
       "maxTokens": 200000,
       "temperature": 0.1
     },

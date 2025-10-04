@@ -1,7 +1,7 @@
 {
-	"name": "task-master-ai",
-	"version": "0.27.4",
-	"description": "A task management system for ambitious AI-driven development that doesn't overwhelm and confuse Cursor.",
+	"name": "warp-task-master",
+	"version": "1.0.0",
+	"description": "Enhanced Task Master with Warp AI integration and human-readable profile names. A fork of task-master-ai with seamless Warp terminal integration.",
 	"main": "index.js",
 	"type": "module",
 	"bin": {
@@ -38,18 +38,21 @@
 		"deps:fix": "manypkg fix"
 	},
 	"keywords": [
-		"claude",
+		"warp",
 		"task",
 		"management",
 		"ai",
 		"development",
+		"claude",
 		"cursor",
 		"anthropic",
 		"llm",
 		"mcp",
-		"context"
+		"context",
+		"terminal",
+		"profiles"
 	],
-	"author": "Eyal Toledano",
+	"author": "Vinay Vidyasagar (fork of task-master-ai by Eyal Toledano)",
 	"license": "MIT WITH Commons-Clause",
 	"dependencies": {
 		"@ai-sdk/amazon-bedrock": "^2.2.9",
@@ -111,11 +114,11 @@
 	"packageManager": "npm@10.9.2",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/eyaltoledano/claude-task-master.git"
+		"url": "git+https://github.com/TheLazyIndianTechie/warp-task-master.git"
 	},
-	"homepage": "https://github.com/eyaltoledano/claude-task-master#readme",
+	"homepage": "https://github.com/TheLazyIndianTechie/warp-task-master#readme",
 	"bugs": {
-		"url": "https://github.com/eyaltoledano/claude-task-master/issues"
+		"url": "https://github.com/TheLazyIndianTechie/warp-task-master/issues"
 	},
 	"files": ["dist/**", "README-task-master.md", "README.md", "LICENSE"],
 	"overrides": {

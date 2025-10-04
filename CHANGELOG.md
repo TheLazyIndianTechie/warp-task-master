@@ -1,4 +1,73 @@
-# task-master-ai
+# warp-task-master
+
+*Enhanced Task Master with seamless Warp AI integration*
+
+## 1.0.0 - Fork Release
+
+**🎉 Initial release of the Warp-enhanced Task Master fork!**
+
+This is an enhanced version of [task-master-ai](https://github.com/eyaltoledano/claude-task-master) with specialized Warp terminal integration and human-readable profile management.
+
+### ✨ Warp AI Enhancements
+
+#### **Human-Readable Profile Names**
+- **Problem Solved**: Original task-master stored cryptic profile IDs like `4SM7QEB6PSpcMwUHEcl6V3` in config files
+- **Solution**: Automatically converts profile IDs to human-readable names like `"Sonnet 4.5"` before storage
+- **Team Benefits**: Config files can now be safely shared across teams using readable names
+- **Dynamic Resolution**: Each user's system dynamically resolves names to their local profile IDs at runtime
+
+#### **Profile Management Commands**
+- **`task-master warp-profiles`** - List all available Warp profiles with names and IDs
+- **`--refresh` flag** - Force cache refresh of Warp profiles
+- **Fuzzy Matching** - Supports variations like "default", "sonnet45", "gpt-5-sonnet-4-5"
+- **Dual Input Support** - Accept both profile IDs and names, always store names
+
+### 🔧 Technical Implementation
+
+- **Profile Mapper** (`src/ai-providers/custom-sdk/warp/profile-mapper.js`, 214 lines)
+  - Dynamic profile fetching from Warp CLI with 5-minute caching
+  - Bidirectional profile resolution (ID ↔ Name)
+  - Comprehensive fuzzy matching with multiple normalizations
+  - Static fallbacks for offline scenarios
+
+- **Core Integration Fixes**
+  - Fixed critical bug where models bypassed Warp-specific ID-to-name conversion
+  - Moved Warp profile resolution to execute before general model lookup
+  - Enhanced model configuration system to prioritize Warp-specific logic
+
+### 📦 Installation
+
+```bash
+# Install from GitHub
+npm install -g TheLazyIndianTechie/warp-task-master
+
+# Or clone and install locally
+git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
+cd warp-task-master
+npm install
+npm run build
+npm link
+```
+
+### 🚀 Quick Start with Warp AI
+
+```bash
+# List available Warp profiles
+task-master warp-profiles
+
+# Set a Warp profile using human-readable name
+task-master models --set-main "Sonnet 4.5" --warp
+
+# Verify your config stores the readable name
+cat .taskmaster/config.json | jq '.models.main'
+# Output: {"provider": "warp", "modelId": "Sonnet 4.5", ...}
+```
+
+---
+
+## Based on task-master-ai v0.27.4
+
+*This fork is based on the excellent work by [Eyal Toledano](https://github.com/eyaltoledano) and the task-master-ai project. All original features and capabilities are preserved.*
 
 ## 0.27.3
 

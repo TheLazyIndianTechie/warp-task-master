@@ -1,7 +1,9 @@
 <a name="readme-top"></a>
 
+> 🚀 **ENHANCED FORK**: This is `warp-task-master`, an enhanced version of [task-master-ai](https://github.com/eyaltoledano/claude-task-master) with **seamless Warp AI integration** and **human-readable profile names**. All original features preserved + powerful Warp enhancements!
+
 <div align='center'>
-<a href="https://trendshift.io/repositories/13971" target="_blank"><img src="https://trendshift.io/api/badge/repositories/13971" alt="eyaltoledano%2Fclaude-task-master | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://github.com/TheLazyIndianTechie/warp-task-master" target="_blank"><img src="https://img.shields.io/badge/Enhanced-Warp%20Fork-blue?style=for-the-badge&logo=warp&logoColor=white" alt="Warp Enhanced Fork" /></a>
 </div>
 
 <p align="center">
@@ -9,7 +11,7 @@
 </p>
 
 <p align="center">
-<b>Taskmaster</b>: A task management system for AI-driven development, designed to work seamlessly with any AI chat.
+<b>Warp Task Master</b>: Enhanced task management system with seamless Warp AI integration and human-readable profile names.
 </p>
 
 <p align="center">
@@ -30,12 +32,47 @@
   <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/dw/task-master-ai?style=flat" alt="NPM Downloads"></a>
 </p>
 
-## By [@eyaltoledano](https://x.com/eyaltoledano) & [@RalphEcom](https://x.com/RalphEcom)
+## 🌟 Warp AI Enhancements
+
+This fork adds powerful Warp terminal integration features:
+
+### ✨ **Human-Readable Profile Names**
+- 👍 **Problem Solved**: No more cryptic profile IDs like `4SM7QEB6PSpcMwUHEcl6V3` in your config files
+- 📝 **Team-Friendly**: Share config files with readable names like `"Sonnet 4.5"` instead of random IDs
+- 🔄 **Dynamic Resolution**: Your system automatically converts names to your local Warp profile IDs
+- 🚀 **Seamless**: Works with existing Warp subscriptions and profiles
+
+### 🛠️ **Enhanced Profile Management**
+```bash
+# List all your Warp profiles with readable names
+task-master warp-profiles
+
+# Set models using human-readable names
+task-master models --set-main "Sonnet 4.5" --warp
+task-master models --set-main "GPT 5 + Sonet 4.5" --warp
+
+# Your config now stores readable names!
+cat .taskmaster/config.json | jq '.models.main.modelId'
+# Output: "Sonnet 4.5" (instead of "4SM7QEB6PSpcMwUHEcl6V3")
+```
+
+### 🌍 **Perfect for Teams**
+- **Before**: Team members couldn't share configs (profile IDs are user-specific)
+- **After**: Share configs safely using human-readable profile names
+- **Smart**: Each user's system resolves names to their own local profile IDs
+
+---
+
+## Original Credits
+
+**Based on excellent work by [@eyaltoledano](https://x.com/eyaltoledano) & [@RalphEcom](https://x.com/RalphEcom)**
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/eyaltoledano)](https://x.com/eyaltoledano)
 [![Twitter Follow](https://img.shields.io/twitter/follow/RalphEcom)](https://x.com/RalphEcom)
 
-A task management system for AI-driven development with Claude, designed to work seamlessly with Cursor AI.
+**Fork maintained by [@TheLazyIndianTechie](https://github.com/TheLazyIndianTechie)**
+
+A task management system for AI-driven development with Claude, designed to work seamlessly with Cursor AI and enhanced with Warp terminal integration.
 
 ## Documentation
 
@@ -75,8 +112,62 @@ At least one (1) of the following is required:
 - xAI API Key (for research or main model)
 - OpenRouter API Key (for research or main model)
 - Claude Code (no API key required - requires Claude Code CLI)
+- Warp AI (no API key required - requires Warp subscription & CLI)
 
-Using the research model is optional but highly recommended. You will need at least ONE API key (unless using Claude Code). Adding all API keys enables you to seamlessly switch between model providers at will.
+Using the research model is optional but highly recommended. You will need at least ONE API key (unless using Claude Code or Warp AI). Adding all API keys enables you to seamlessly switch between model providers at will.
+
+## 📦 Installation (Warp Enhanced Fork)
+
+> 🚨 **Important**: This is the installation for the **Warp-enhanced fork**. For the original task-master-ai, see the [original repository](https://github.com/eyaltoledano/claude-task-master).
+
+### Option A: Install from GitHub (Recommended)
+
+```bash
+# Install globally from GitHub
+npm install -g https://github.com/TheLazyIndianTechie/warp-task-master.git
+
+# Or clone and install locally for development
+git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
+cd warp-task-master
+npm install
+npm run build
+npm link  # Makes 'task-master' available globally
+```
+
+### Option B: Use with MCP (Enhanced)
+
+For MCP usage, update your editor config to point to this fork:
+
+```json
+{
+  "mcpServers": {
+    "warp-task-master": {
+      "command": "npx",
+      "args": ["-y", "https://github.com/TheLazyIndianTechie/warp-task-master.git"],
+      "env": {
+        "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
+        "OPENAI_API_KEY": "YOUR_OPENAI_KEY_HERE"
+        // ... other API keys
+      }
+    }
+  }
+}
+```
+
+### ✅ Verify Installation
+
+```bash
+# Check version (should show 1.0.0)
+task-master --version
+
+# Test Warp integration
+task-master warp-profiles
+
+# Set a model with human-readable name
+task-master models --set-main "Sonnet 4.5" --warp
+```
+
+---
 
 ## Quick Start
 
@@ -276,6 +367,115 @@ Task Master now supports Claude models through the Claude Code CLI, which requir
 - **Benefits**: No API key needed, uses your local Claude instance
 
 [Learn more about Claude Code setup](docs/examples/claude-code-usage.md)
+
+## Warp AI Support
+
+Task Master supports Warp AI agents through the Warp CLI, providing subscription-based access without requiring API keys:
+
+- **Models**: All Warp agent profiles (Default, YOLO Code, Sonnet 4.5, GPT 5 + Sonnet 4.5)
+- **Requirements**: Active Warp subscription and `warp-preview` CLI installed
+- **Benefits**: No API keys needed, uses your Warp subscription
+- **Team-friendly**: Human-readable profile names in configs ("Sonnet 4.5" vs cryptic IDs)
+
+### Installation
+
+#### 1. Install Warp CLI
+
+```bash
+# Via Homebrew (Recommended)
+brew tap warpdotdev/warp
+brew install --cask warp-cli
+
+# Verify installation
+which warp-preview
+warp-preview agent profile list
+```
+
+#### 2. Login to Warp
+
+```bash
+warp-preview login
+```
+
+#### 3. Configure Task Master to use Warp
+
+```bash
+# List available Warp profiles
+task-master warp-profiles
+
+# Set main model to Warp (use human-readable names)
+task-master models --set-main "Sonnet 4.5" --warp
+
+# Or use profile IDs directly (automatically converted to names)
+task-master models --set-main "4SM7QEB6PSpcMwUHEcl6V3" --warp
+
+# Set research model
+task-master models --set-research "YOLO Code" --warp
+
+# Set fallback model
+task-master models --set-fallback "Default" --warp
+```
+
+### Available Warp Profiles
+
+| Profile Name | Description | Context Window |
+|--------------|-------------|-----------------|
+| Default | Standard Warp profile | 100K tokens |
+| YOLO Code | Fast coding assistant | 100K tokens |
+| Sonnet 4.5 | Claude 3.5 Sonnet | 100K tokens |
+| GPT 5 + Sonnet 4.5 | Hybrid model | 200K tokens |
+
+### Usage Examples
+
+```bash
+# Create tasks using Warp AI
+task-master add-task --prompt "Implement user authentication"
+
+# Parse PRD with Warp AI
+task-master parse-prd your-prd.txt
+
+# Research with Warp AI
+task-master research "Latest React patterns for 2024"
+```
+
+### Team Configuration
+
+Warp profiles use **human-readable names** in config files, making them safe to commit:
+
+```json
+{
+  "models": {
+    "main": {
+      "provider": "warp",
+      "modelId": "Sonnet 4.5",  // ← Human-readable name, not cryptic ID
+      "maxTokens": 100000
+    }
+  }
+}
+```
+
+Each team member's system automatically resolves "Sonnet 4.5" to their local Warp profile ID, enabling seamless team collaboration.
+
+### Profile Management
+
+```bash
+# List all available profiles
+task-master warp-profiles
+
+# Refresh profile cache
+task-master warp-profiles --refresh
+
+# Check current model configuration
+task-master models
+```
+
+### Troubleshooting
+
+**CLI Not Found**: Install Warp CLI via Homebrew or from Warp app settings
+
+**Authentication Failed**: Run `warp-preview login` and ensure you have an active subscription
+
+**Profile Not Found**: Use `task-master warp-profiles` to see available profiles
 
 ## Troubleshooting
 
