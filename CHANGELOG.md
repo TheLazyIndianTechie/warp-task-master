@@ -4,7 +4,19 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
-## 1.0.0-beta.2 - Executable Rename for Conflict Avoidance
+## 1.0.0-beta.2 - Executable Rename for Conflict Avoidance ✅ **PUBLISHED TO NPM**
+
+**🚀 NPM PUBLICATION STATUS:**
+- ✅ Successfully published as `warp-task-master@1.0.0-beta.2`
+- 📦 Package size: 347.2 kB (unpacked: 1.4 MB)
+- 🏷️ Beta tag prevents accidental installation
+- 👤 Published by: TheLazyIndianTechie
+- 📋 102 files packaged for distribution
+
+**Installation:**
+```bash
+npm install -g warp-task-master@beta
+```
 
 **🔧 BREAKING CHANGE: Executable renamed to avoid conflicts with original task-master-ai**
 
