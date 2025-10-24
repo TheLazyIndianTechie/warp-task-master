@@ -4,9 +4,9 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
-## Unreleased - Documentation Cleanup
+## Unreleased - Documentation Cleanup & NPM Documentation
 
-**📚 MAJOR DOCUMENTATION OVERHAUL**: Streamlined README to focus on Warp-specific features
+**📚 MAJOR DOCUMENTATION OVERHAUL + PUBLIC NPM DOCUMENTATION**: Streamlined GitHub README and created separate NPM-specific docs
 
 ### Changed
 - **COMPLETE REWRITE**: README.md now focuses exclusively on Warp AI enhancements
@@ -14,16 +14,20 @@
 - **STREAMLINED**: Reduced from 544 lines to ~400 lines by removing generic task-master content
 - **BETTER NAVIGATION**: Clear links to original project documentation for non-Warp features
 - **WARP-FIRST**: All examples and quick start guide now use Warp AI profiles
+- **NPM-SPECIFIC DOCS**: Created `README_NPM.md` for public npm package registry (installation-focused only)
+- **PACKAGE.JSON**: Updated to use `README_NPM.md` for npm registry display
 
 ### Added
 - `README-original.md` - Archived original README for reference
+- `README_NPM.md` - Public-facing NPM package documentation (no GitHub-specific content)
 - Prominent credit section for original task-master-ai project
 - Direct links to original project documentation
 - Warp-specific tips and troubleshooting section
+- `"readme": "README_NPM.md"` in package.json to control npm registry display
 
 ### Rationale
 The previous README was 90% generic task-master content that's already well-documented in the original project.
-This fork exists for **Warp-specific enhancements**, so the documentation should reflect that focus.
+This fork exists for **Warp-specific enhancements**, so the documentation should reflect that focus. Additionally, NPM displays different documentation than GitHub to ensure end-users consuming the package see installation-focused documentation.
 
 ---
 
