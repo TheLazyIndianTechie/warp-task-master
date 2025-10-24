@@ -3905,7 +3905,7 @@ Examples:
 			try {
 				// Import Warp profile mapper
 				const { listProfiles, clearProfileCache } = await import(
-					'../src/ai-providers/custom-sdk/warp/profile-mapper.js'
+					'../../src/ai-providers/index.js'
 				);
 
 				if (options.refresh) {
