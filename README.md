@@ -1,8 +1,6 @@
 <a name="readme-top"></a>
 
-> ⚠️ **BETA WARNING**: This is `warp-task-master`, a **BETA** custom fork of [task-master-ai](https://github.com/eyaltoledano/claude-task-master) with experimental Warp AI integration. **Use at your own risk!**
-> 
-> 🔗 **Want the original stable version?** → [task-master-ai](https://github.com/eyaltoledano/claude-task-master) by [@eyaltoledano](https://github.com/eyaltoledano)
+> ⚠️ **BETA WARNING**: This is `warp-task-master`, a **BETA** custom fork with experimental Warp AI integration. **Use at your own risk!**
 
 <div align='center'>
 <a href="https://github.com/TheLazyIndianTechie/warp-task-master" target="_blank"><img src="https://img.shields.io/badge/Enhanced-Warp%20Fork-blue?style=for-the-badge&logo=warp&logoColor=white" alt="Warp Enhanced Fork" /></a>
@@ -13,129 +11,115 @@
 </p>
 
 <p align="center">
-<b>Warp Task Master (BETA)</b>: Experimental custom task management system with Warp AI integration and human-readable profile names.
-</p>
-
-
-<p align="center">
-  <a href="https://discord.gg/taskmasterai" target="_blank"><img src="https://dcbadge.limes.pink/api/server/https://discord.gg/taskmasterai?style=flat" alt="Discord"></a> |
-  <a href="https://docs.task-master.dev" target="_blank">Docs</a>
+<b>Warp Task Master (BETA)</b>: AI-powered task management with Warp AI integration and human-readable profile names.
 </p>
 
 <p align="center">
-  <a href="https://github.com/eyaltoledano/claude-task-master/actions/workflows/ci.yml"><img src="https://github.com/eyaltoledano/claude-task-master/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/eyaltoledano/claude-task-master/stargazers"><img src="https://img.shields.io/github/stars/eyaltoledano/claude-task-master?style=social" alt="GitHub stars"></a>
-  <a href="https://badge.fury.io/js/task-master-ai"><img src="https://badge.fury.io/js/task-master-ai.svg" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/warp-task-master"><img src="https://img.shields.io/npm/v/warp-task-master.svg?style=flat" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/warp-task-master"><img src="https://img.shields.io/npm/dm/warp-task-master?style=flat" alt="NPM Downloads"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT%20with%20Commons%20Clause-blue.svg" alt="License"></a>
 </p>
 
-<p align="center">
-  <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/d18m/task-master-ai?style=flat" alt="NPM Downloads"></a>
-  <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/dm/task-master-ai?style=flat" alt="NPM Downloads"></a>
-  <a href="https://www.npmjs.com/package/task-master-ai"><img src="https://img.shields.io/npm/dw/task-master-ai?style=flat" alt="NPM Downloads"></a>
-</p>
+---
 
-## 🌟 Warp AI Enhancements (BETA)
+## 🌟 About This Fork
 
-> ⚠️ **EXPERIMENTAL**: These features are in beta testing. For production use, consider the [original stable task-master-ai](https://github.com/eyaltoledano/claude-task-master).
+This is an **enhanced fork** of [task-master-ai](https://github.com/eyaltoledano/claude-task-master) by [@eyaltoledano](https://github.com/eyaltoledano) with specialized Warp terminal integration.
 
-This **experimental** fork adds Warp terminal integration features:
+**🔗 For the original stable version** → [task-master-ai](https://github.com/eyaltoledano/claude-task-master)
 
-### ✨ **Human-Readable Profile Names**
-- 👍 **Problem Solved**: No more cryptic profile IDs like `4SM7QEB6PSpcMwUHEcl6V3` in your config files
-- 📝 **Team-Friendly**: Share config files with readable names like `"Sonnet 4.5"` instead of random IDs
-- 🔄 **Dynamic Resolution**: Your system automatically converts names to your local Warp profile IDs
-- 🚀 **Seamless**: Works with existing Warp subscriptions and profiles
+### Why This Fork?
 
-### 🛠️ **Enhanced Profile Management**
+The original task-master-ai is an excellent AI-powered task management system. This fork adds **Warp-specific enhancements** that make it even better for Warp users:
+
+1. **Human-Readable Profile Names** - No more cryptic IDs in configs
+2. **Team-Friendly Configuration** - Share configs with readable names
+3. **Dynamic Profile Resolution** - Automatic ID mapping per user
+4. **Warp CLI Integration** - Direct integration with Warp AI agents
+
+For everything else, this fork maintains 100% compatibility with the original.
+
+---
+
+## ✨ Warp AI Enhancements
+
+### 🎯 Human-Readable Profile Names
+
+**The Problem:**
+```json
+{
+  "models": {
+    "main": {
+      "provider": "warp",
+      "modelId": "4SM7QEB6PSpcMwUHEcl6V3"  // ❌ What is this?
+    }
+  }
+}
+```
+
+**The Solution:**
+```json
+{
+  "models": {
+    "main": {
+      "provider": "warp",
+      "modelId": "Sonnet 4.5"  // ✅ Clear and team-friendly!
+    }
+  }
+}
+```
+
+### 🛠️ Warp Profile Management
+
 ```bash
 # List all your Warp profiles with readable names
 warp-task-master warp-profiles
 
+# Output:
+# 🌀 Available Warp AI Profiles:
+# 
+# Name: Sonnet 4.5
+# ID:   4SM7QEB6PSpcMwUHEcl6V3
+# ──────────────────────────────────────────────────
+# Name: GPT 5 + Sonet 4.5
+# ID:   eOGia6hxKDujsDTKOn3qwh
+# ...
+
 # Set models using human-readable names
 warp-task-master models --set-main "Sonnet 4.5" --warp
-warp-task-master models --set-main "GPT 5 + Sonet 4.5" --warp
-
-# Your config now stores readable names!
-cat .taskmaster/config.json | jq '.models.main.modelId'
-# Output: "Sonnet 4.5" (instead of "4SM7QEB6PSpcMwUHEcl6V3")
+warp-task-master models --set-research "GPT 5 + Sonet 4.5" --warp
 ```
 
-### 🌍 **Perfect for Teams**
+### 🌍 Perfect for Teams
+
 - **Before**: Team members couldn't share configs (profile IDs are user-specific)
 - **After**: Share configs safely using human-readable profile names
 - **Smart**: Each user's system resolves names to their own local profile IDs
 
 ---
 
-## Original Credits
+## 📦 Installation
 
-**Based on excellent work by [@eyaltoledano](https://x.com/eyaltoledano) & [@RalphEcom](https://x.com/RalphEcom)**
+### Requirements
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/eyaltoledano)](https://x.com/eyaltoledano)
-[![Twitter Follow](https://img.shields.io/twitter/follow/RalphEcom)](https://x.com/RalphEcom)
+- **Warp subscription** with access to Warp AI agents
+- **Warp CLI** (`warp-preview`) installed and accessible
 
-**Fork maintained by [@TheLazyIndianTechie](https://github.com/TheLazyIndianTechie)**
-
-A task management system for AI-driven development with Claude, designed to work seamlessly with Cursor AI and enhanced with Warp terminal integration.
-
-## Documentation
-
-📚 **[View Full Documentation](https://docs.task-master.dev)**
-
-For detailed guides, API references, and comprehensive examples, visit our documentation site.
-
-### Quick Reference
-
-The following documentation is also available in the `docs` directory:
-
-- [Configuration Guide](docs/configuration.md) - Set up environment variables and customize Task Master
-- [Tutorial](docs/tutorial.md) - Step-by-step guide to getting started with Task Master
-- [Command Reference](docs/command-reference.md) - Complete list of all available commands
-- [Task Structure](docs/task-structure.md) - Understanding the task format and features
-- [Example Interactions](docs/examples.md) - Common Cursor AI interaction examples
-- [Migration Guide](docs/migration-guide.md) - Guide to migrating to the new project structure
-
-#### Quick Install for Cursor 1.0+ (One-Click)
-
-[![Add task-master-ai MCP server to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=task-master-ai&config=eyJjb21tYW5kIjoibnB4IC15IC0tcGFja2FnZT10YXNrLW1hc3Rlci1haSB0YXNrLW1hc3Rlci1haSIsImVudiI6eyJBTlRIUk9QSUNfQVBJX0tFWSI6IllPVVJfQU5USFJPUElDX0FQSV9LRVlfSEVSRSIsIlBFUlBMRVhJVFlfQVBJX0tFWSI6IllPVVJfUEVSUExFWElUWV9BUElfS0VZX0hFUkUiLCJPUEVOQUlfQVBJX0tFWSI6IllPVVJfT1BFTkFJX0tFWV9IRVJFIiwiR09PR0xFX0FQSV9LRVkiOiJZT1VSX0dPT0dMRV9LRVlfSEVSRSIsIk1JU1RSQUxfQVBJX0tFWSI6IllPVVJfTUlTVFJBTF9LRVlfSEVSRSIsIkdST1FfQVBJX0tFWSI6IllPVVJfR1JPUV9LRVlfSEVSRSIsIk9QRU5ST1VURVJfQVBJX0tFWSI6IllPVVJfT1BFTlJPVVRFUl9LRVlfSEVSRSIsIlhBSV9BUElfS0VZIjoiWU9VUl9YQUlfS0VZX0hFUkUiLCJBWlVSRV9PUEVOQUlfQVBJX0tFWSI6IllPVVJfQVpVUkVfS0VZX0hFUkUiLCJPTExBTUFfQVBJX0tFWSI6IllPVVJfT0xMQU1BX0FQSV9LRVlfSEVSRSJ9fQ%3D%3D)
-
-> **Note:** After clicking the link, you'll still need to add your API keys to the configuration. The link installs the MCP server with placeholder keys that you'll need to replace with your actual API keys.
-
-## Requirements
-
-Taskmaster utilizes AI across several commands, and those require a separate API key. You can use a variety of models from different AI providers provided you add your API keys. For example, if you want to use Claude 3.7, you'll need an Anthropic API key.
-
-You can define 3 types of models to be used: the main model, the research model, and the fallback model (in case either the main or research fail). Whatever model you use, its provider API key must be present in either mcp.json or .env.
-
-At least one (1) of the following is required:
-
-- Anthropic API key (Claude API)
-- OpenAI API key
-- Google Gemini API key
-- Perplexity API key (for research model)
-- xAI API Key (for research or main model)
-- OpenRouter API Key (for research or main model)
-- Claude Code (no API key required - requires Claude Code CLI)
-- Warp AI (no API key required - requires Warp subscription & CLI)
-
-Using the research model is optional but highly recommended. You will need at least ONE API key (unless using Claude Code or Warp AI). Adding all API keys enables you to seamlessly switch between model providers at will.
-
-## 📦 Installation (BETA - Warp Enhanced Fork)
-
-> 🚨 **BETA SOFTWARE WARNING**: This is **experimental software** with potential bugs and instability. 
-> 
-> 🔒 **For production use**: Install the stable [original task-master-ai](https://github.com/eyaltoledano/claude-task-master) instead.
-> 
-> 🧪 **Proceed only if**: You want to test experimental Warp AI features and understand the risks.
-
-### Option A: Install from GitHub (BETA - Use at Your Own Risk)
+### Option 1: Install from npm (Recommended)
 
 ```bash
-# ⚠️  BETA SOFTWARE - Install globally from GitHub
-npm install -g https://github.com/TheLazyIndianTechie/warp-task-master.git
+npm install -g warp-task-master
+```
 
-# Or clone and install locally for development/testing
+### Option 2: Install from GitHub
+
+```bash
+npm install -g https://github.com/TheLazyIndianTechie/warp-task-master.git
+```
+
+### Option 3: Local Development
+
+```bash
 git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
 cd warp-task-master
 npm install
@@ -143,402 +127,281 @@ npm run build
 npm link  # Makes 'warp-task-master' available globally
 ```
 
-> ⚠️ **Reminder**: This uses a separate `warp-task-master` command to avoid conflicts with the original `task-master-ai`.
-
-### Option B: Use with MCP (Enhanced)
-
-For MCP usage, update your editor config to point to this fork:
-
-```json
-{
-  "mcpServers": {
-    "warp-task-master": {
-      "command": "npx",
-      "args": ["-y", "https://github.com/TheLazyIndianTechie/warp-task-master.git"],
-      "env": {
-        "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
-        "OPENAI_API_KEY": "YOUR_OPENAI_KEY_HERE"
-        // ... other API keys
-      }
-    }
-  }
-}
-```
-
-### ✅ Verify Installation
-
-> **Note**: Warp-specific commands require the Warp CLI to be installed first. See [Warp AI Support](#warp-ai-support) section below.
+### Verify Installation
 
 ```bash
-# Check version (should show 1.0.0-beta.2)
+# Check version
 warp-task-master --version
 
-# Test Warp integration (BETA feature)
+# List available Warp profiles
 warp-task-master warp-profiles
 
-# Set a model with human-readable name (BETA feature)
+# Set a model with human-readable name
 warp-task-master models --set-main "Sonnet 4.5" --warp
 ```
 
-> 📝 **Note**: If you see issues, consider using the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master) instead.
->
-> 💡 **Command Name**: This fork uses `warp-task-master` to avoid conflicts with the original `task-master` command.
-
 ---
 
-## Quick Start
+## 🚀 Quick Start
 
-### Option 1: MCP (Recommended)
-
-MCP (Model Control Protocol) lets you run Task Master directly from your editor.
-
-#### 1. Add your MCP config at the following path depending on your editor
-
-| Editor       | Scope   | Linux/macOS Path                      | Windows Path                                      | Key          |
-| ------------ | ------- | ------------------------------------- | ------------------------------------------------- | ------------ |
-| **Cursor**   | Global  | `~/.cursor/mcp.json`                  | `%USERPROFILE%\.cursor\mcp.json`                  | `mcpServers` |
-|              | Project | `<project_folder>/.cursor/mcp.json`   | `<project_folder>\.cursor\mcp.json`               | `mcpServers` |
-| **Windsurf** | Global  | `~/.codeium/windsurf/mcp_config.json` | `%USERPROFILE%\.codeium\windsurf\mcp_config.json` | `mcpServers` |
-| **VS Code**  | Project | `<project_folder>/.vscode/mcp.json`   | `<project_folder>\.vscode\mcp.json`               | `servers`    |
-
-##### Manual Configuration
-
-###### Cursor & Windsurf (`mcpServers`)
-
-```json
-{
-  "mcpServers": {
-    "warp-task-master": {
-      "command": "npx",
-      "args": ["-y", "warp-task-master"],
-      "env": {
-        "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
-        "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
-        "OPENAI_API_KEY": "YOUR_OPENAI_KEY_HERE",
-        "GOOGLE_API_KEY": "YOUR_GOOGLE_KEY_HERE",
-        "MISTRAL_API_KEY": "YOUR_MISTRAL_KEY_HERE",
-        "GROQ_API_KEY": "YOUR_GROQ_KEY_HERE",
-        "OPENROUTER_API_KEY": "YOUR_OPENROUTER_KEY_HERE",
-        "XAI_API_KEY": "YOUR_XAI_KEY_HERE",
-        "AZURE_OPENAI_API_KEY": "YOUR_AZURE_KEY_HERE",
-        "OLLAMA_API_KEY": "YOUR_OLLAMA_API_KEY_HERE"
-      }
-    }
-  }
-}
-```
-
-> 🔑 Replace `YOUR_…_KEY_HERE` with your real API keys. You can remove keys you don't use.
-
-> **Note**: If you see `0 tools enabled` in the MCP settings, restart your editor and check that your API keys are correctly configured.
-
-###### VS Code (`servers` + `type`)
-
-```json
-{
-  "servers": {
-    "warp-task-master": {
-      "command": "npx",
-      "args": ["-y", "warp-task-master"],
-      "env": {
-        "ANTHROPIC_API_KEY": "YOUR_ANTHROPIC_API_KEY_HERE",
-        "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
-        "OPENAI_API_KEY": "YOUR_OPENAI_KEY_HERE",
-        "GOOGLE_API_KEY": "YOUR_GOOGLE_KEY_HERE",
-        "MISTRAL_API_KEY": "YOUR_MISTRAL_KEY_HERE",
-        "GROQ_API_KEY": "YOUR_GROQ_KEY_HERE",
-        "OPENROUTER_API_KEY": "YOUR_OPENROUTER_KEY_HERE",
-        "XAI_API_KEY": "YOUR_XAI_KEY_HERE",
-        "AZURE_OPENAI_API_KEY": "YOUR_AZURE_KEY_HERE",
-        "OLLAMA_API_KEY": "YOUR_OLLAMA_API_KEY_HERE"
-      },
-      "type": "stdio"
-    }
-  }
-}
-```
-
-> 🔑 Replace `YOUR_…_KEY_HERE` with your real API keys. You can remove keys you don't use.
-
-#### 2. (Cursor-only) Enable Taskmaster MCP
-
-Open Cursor Settings (Ctrl+Shift+J) ➡ Click on MCP tab on the left ➡ Enable warp-task-master with the toggle
-
-#### 3. (Optional) Configure the models you want to use
-
-In your editor's AI chat pane, say:
-
-```txt
-Change the main, research and fallback models to <model_name>, <model_name> and <model_name> respectively.
-```
-
-For example, to use Claude Code (no API key required):
-```txt
-Change the main model to claude-code/sonnet
-```
-
-[Table of available models](docs/models.md) | [Claude Code setup](docs/examples/claude-code-usage.md)
-
-#### 4. Initialize Task Master
-
-In your editor's AI chat pane, say:
-
-```txt
-Initialize taskmaster-ai in my project
-```
-
-#### 5. Make sure you have a PRD (Recommended)
-
-For **new projects**: Create your PRD at `.taskmaster/docs/prd.txt`  
-For **existing projects**: You can use `scripts/prd.txt` or migrate with `warp-task-master migrate`
-
-An example PRD template is available after initialization in `.taskmaster/templates/example_prd.txt`.
-
-> [!NOTE]
-> While a PRD is recommended for complex projects, you can always create individual tasks by asking "Can you help me implement [description of what you want to do]?" in chat.
-
-**Always start with a detailed PRD.**
-
-The more detailed your PRD, the better the generated tasks will be.
-
-#### 6. Common Commands
-
-Use your AI assistant to:
-
-- Parse requirements: `Can you parse my PRD at scripts/prd.txt?`
-- Plan next step: `What's the next task I should work on?`
-- Implement a task: `Can you help me implement task 3?`
-- View multiple tasks: `Can you show me tasks 1, 3, and 5?`
-- Expand a task: `Can you help me expand task 4?`
-- **Research fresh information**: `Research the latest best practices for implementing JWT authentication with Node.js`
-- **Research with context**: `Research React Query v5 migration strategies for our current API implementation in src/api.js`
-
-[More examples on how to use Task Master in chat](docs/examples.md)
-
-### Option 2: Using Command Line (Warp Fork)
-
-#### Installation
+### 1. Initialize Your Project
 
 ```bash
-# Install Warp fork globally  
-npm install -g https://github.com/TheLazyIndianTechie/warp-task-master.git
-
-# OR install locally within your project
-npm install https://github.com/TheLazyIndianTechie/warp-task-master.git
-```
-
-#### Initialize a new project
-
-```bash
-# If installed globally
 warp-task-master init
-
-# If installed locally
-npx warp-task-master init
-
-# Initialize project with specific rules
-warp-task-master init --rules cursor,windsurf,vscode
 ```
 
-This will prompt you for project details and set up a new project with the necessary files and structure.
+This creates a `.taskmaster/` directory with:
+- `config.json` - Your model configuration
+- `tasks/tasks.json` - Task storage
+- `docs/` - Documentation and PRD templates
+- `state.json` - Current project state
 
-#### Common Commands
+### 2. Configure Warp AI
 
 ```bash
-# Initialize a new project
-warp-task-master init
+# Interactive setup
+warp-task-master models --setup
 
-# Parse a PRD and generate tasks
-warp-task-master parse-prd your-prd.txt
+# Or set directly
+warp-task-master models --set-main "Sonnet 4.5" --warp
+warp-task-master models --set-research "GPT 5 + Sonet 4.5" --warp
+```
+
+### 3. Create Your PRD
+
+Create `.taskmaster/docs/prd.txt` with your project requirements. The more detailed, the better!
+
+Example PRD template:
+```markdown
+# Project: My Awesome App
+
+## Overview
+A brief description of what you're building...
+
+## Features
+1. User authentication
+2. Dashboard with analytics
+3. Data export functionality
+
+## Technical Requirements
+- Node.js backend
+- React frontend
+- PostgreSQL database
+```
+
+### 4. Parse Your PRD
+
+```bash
+warp-task-master parse-prd .taskmaster/docs/prd.txt
+```
+
+This generates structured tasks with:
+- Dependencies
+- Priorities
+- Implementation details
+- Test strategies
+
+### 5. Work on Tasks
+
+```bash
+# Show next recommended task
+warp-task-master next
 
 # List all tasks
 warp-task-master list
 
-# Show the next task to work on
-warp-task-master next
-
-# Show specific task(s) - supports comma-separated IDs
+# Show specific tasks
 warp-task-master show 1,3,5
 
-# Research fresh information with project context
-warp-task-master research "What are the latest best practices for JWT authentication?"
-
-# Move tasks between tags (cross-tag movement)
-warp-task-master move --from=5 --from-tag=backlog --to-tag=in-progress
-warp-task-master move --from=5,6,7 --from-tag=backlog --to-tag=done --with-dependencies
-warp-task-master move --from=5 --from-tag=backlog --to-tag=in-progress --ignore-dependencies
-
-# Generate task files
-warp-task-master generate
-
-# Add rules after initialization
-warp-task-master rules add windsurf,roo,vscode
+# Update task status
+warp-task-master set-status --id=1 --status=in-progress
+warp-task-master set-status --id=1 --status=done
 ```
 
-## Claude Code Support
+---
 
-Task Master now supports Claude models through the Claude Code CLI, which requires no API key:
+## 🎯 Warp-Specific Commands
 
-- **Models**: `claude-code/opus` and `claude-code/sonnet`
-- **Requirements**: Claude Code CLI installed
-- **Benefits**: No API key needed, uses your local Claude instance
-
-[Learn more about Claude Code setup](docs/examples/claude-code-usage.md)
-
-## Warp AI Support
-
-Task Master supports Warp AI agents through the Warp CLI, providing subscription-based access without requiring API keys:
-
-- **Models**: All Warp agent profiles (Default, YOLO Code, Sonnet 4.5, GPT 5 + Sonnet 4.5)
-- **Requirements**: Active Warp subscription and `warp-preview` CLI installed
-- **Benefits**: No API keys needed, uses your Warp subscription
-- **Team-friendly**: Human-readable profile names in configs ("Sonnet 4.5" vs cryptic IDs)
-
-### Installation
-
-#### 1. Install Warp CLI
+### Profile Management
 
 ```bash
-# Via Homebrew (Recommended)
-brew tap warpdotdev/warp
-brew install --cask warp-cli
-
-# Verify installation
-which warp-preview
-warp-preview agent profile list
-```
-
-#### 2. Login to Warp
-
-```bash
-warp-preview login
-```
-
-#### 3. Configure Task Master to use Warp
-
-```bash
-# List available Warp profiles
+# List all Warp profiles
 warp-task-master warp-profiles
 
-# Set main model to Warp (use human-readable names)
-warp-task-master models --set-main "Sonnet 4.5" --warp
-
-# Or use profile IDs directly (automatically converted to names)
-warp-task-master models --set-main "4SM7QEB6PSpcMwUHEcl6V3" --warp
-
-# Set research model
-warp-task-master models --set-research "YOLO Code" --warp
-
-# Set fallback model
-warp-task-master models --set-fallback "Default" --warp
+# Refresh profile cache
+warp-task-master warp-profiles --refresh
 ```
 
-### Available Warp Profiles
-
-> **Note**: Profile availability may vary based on your Warp subscription tier. Run `warp-task-master warp-profiles` to see your current profiles.
-
-| Profile Name | Description | Context Window |
-|--------------|-------------|-----------------|
-| Default | Standard Warp profile | 100K tokens |
-| YOLO Code | Fast coding assistant | 100K tokens |
-| Sonnet 4.5 | Claude 3.5 Sonnet | 100K tokens |
-| GPT 5 + Sonnet 4.5 | Hybrid model | 200K tokens |
-
-### Usage Examples
+### Model Configuration
 
 ```bash
-# Create tasks using Warp AI
-warp-task-master add-task --prompt "Implement user authentication"
+# Interactive setup with Warp profiles
+warp-task-master models --setup
 
-# Parse PRD with Warp AI
-warp-task-master parse-prd your-prd.txt
+# Set main model
+warp-task-master models --set-main "Sonnet 4.5" --warp
 
-# Research with Warp AI
-warp-task-master research "Latest React patterns for 2024"
+# Set research model
+warp-task-master models --set-research "GPT 5 + Sonet 4.5" --warp
+
+# Set fallback model
+warp-task-master models --set-fallback "Sonnet 4.5" --warp
+
+# View current configuration
+warp-task-master models
 ```
 
-### Team Configuration
+### PRD Parsing with Warp
 
-Warp profiles use **human-readable names** in config files, making them safe to commit:
+```bash
+# Parse PRD using your configured Warp profile
+warp-task-master parse-prd .taskmaster/docs/prd.txt
+
+# The Warp AI agent will:
+# 1. Analyze your requirements
+# 2. Break them into actionable tasks
+# 3. Identify dependencies
+# 4. Assign priorities
+# 5. Generate implementation guidance
+```
+
+---
+
+## 📖 Full Documentation
+
+For complete documentation on all features (shared with original task-master-ai):
+
+- **[Original Project Documentation](https://docs.task-master.dev)** - Complete guides and API reference
+- **[Command Reference](docs/command-reference.md)** - All available commands
+- **[Configuration Guide](docs/configuration.md)** - Detailed configuration options
+- **[Task Structure](docs/task-structure.md)** - Understanding task format
+
+---
+
+## 🔑 Supported AI Providers
+
+While this fork focuses on Warp AI, it maintains full compatibility with all providers from the original:
+
+- ✅ **Warp AI** (subscription-based, no API key required) - **Enhanced in this fork**
+- ✅ Claude (Anthropic)
+- ✅ Claude Code (no API key required)
+- ✅ GPT-4/GPT-3.5 (OpenAI)
+- ✅ Gemini (Google)
+- ✅ Perplexity (research model)
+- ✅ xAI (Grok)
+- ✅ OpenRouter
+- ✅ Groq
+- ✅ Azure OpenAI
+- ✅ Ollama (local models)
+
+[See full model configuration guide](docs/models.md)
+
+---
+
+## 💡 Tips for Warp Users
+
+### 1. Profile Name Flexibility
+
+The profile name matcher is fuzzy and supports multiple formats:
+
+```bash
+# All of these work:
+warp-task-master models --set-main "Sonnet 4.5" --warp
+warp-task-master models --set-main "sonnet45" --warp
+warp-task-master models --set-main "sonnet-4-5" --warp
+```
+
+### 2. Config Portability
+
+Your `.taskmaster/config.json` is now portable across your team:
 
 ```json
 {
   "models": {
     "main": {
       "provider": "warp",
-      "modelId": "Sonnet 4.5",  // ← Human-readable name, not cryptic ID
-      "maxTokens": 100000
+      "modelId": "Sonnet 4.5"  // ✅ Everyone can understand this
     }
   }
 }
 ```
 
-Each team member's system automatically resolves "Sonnet 4.5" to their local Warp profile ID, enabling seamless team collaboration.
+Each team member's Warp installation will resolve "Sonnet 4.5" to their local profile ID.
 
-### Profile Management
+### 3. Verify Your Setup
 
 ```bash
-# List all available profiles
+# Check what profiles you have
 warp-task-master warp-profiles
 
-# Refresh profile cache
-warp-task-master warp-profiles --refresh
-
-# Check current model configuration
-warp-task-master models
+# Verify your config
+cat .taskmaster/config.json | jq '.models'
 ```
 
-### Troubleshooting
+---
 
-**CLI Not Found**: Install Warp CLI via Homebrew or from Warp app settings
+## 🐛 Known Issues & Beta Status
 
-**Authentication Failed**: Run `warp-preview login` and ensure you have an active subscription
+This is **beta software** with potential bugs:
 
-**Profile Not Found**: Use `warp-task-master warp-profiles` to see available profiles
+- ⚠️ Warp profile fetching requires `warp-preview` CLI
+- ⚠️ Profile name resolution depends on your active Warp subscription
+- ⚠️ Some edge cases in profile name matching may need refinement
 
-## Troubleshooting
+**For production use**, consider the [original stable task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
-### If `warp-task-master init` doesn't respond
+**Report issues**: [GitHub Issues](https://github.com/TheLazyIndianTechie/warp-task-master/issues)
 
-Try running it with Node directly:
+---
 
-```bash
-node node_modules/warp-task-master/scripts/init.js
-```
+## 🤝 Contributing
 
-Or clone the repository and run:
+Contributions are welcome! This fork maintains compatibility with the original task-master-ai while adding Warp-specific features.
 
-```bash
-git clone https://github.com/TheLazyIndianTechie/warp-task-master.git
-cd warp-task-master
-node scripts/init.js
-```
+**Key areas for contribution:**
+- Warp CLI integration improvements
+- Profile name mapping enhancements
+- Bug fixes and stability improvements
+- Documentation improvements
 
-## Contributors
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-<a href="https://github.com/eyaltoledano/claude-task-master/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=eyaltoledano/claude-task-master" alt="Task Master project contributors" />
-</a>
+---
 
-## Star History
+## 📜 License
 
-[![Star History Chart](https://api.star-history.com/svg?repos=eyaltoledano/claude-task-master&type=Timeline)](https://www.star-history.com/#eyaltoledano/claude-task-master&Timeline)
+MIT License with Commons Clause - Same as the original task-master-ai
 
-## Licensing
+See [LICENSE](LICENSE) for details.
 
-Task Master is licensed under the MIT License with Commons Clause. This means you can:
+---
 
-✅ **Allowed**:
+## 🙏 Credits
 
-- Use Task Master for any purpose (personal, commercial, academic)
-- Modify the code
-- Distribute copies
-- Create and sell products built using Task Master
+### Original Project
 
-❌ **Not Allowed**:
+**Task Master AI** by:
+- [@eyaltoledano](https://x.com/eyaltoledano) - Original creator
+- [@RalphEcom](https://x.com/RalphEcom) - Core contributor
 
-- Sell Task Master itself
-- Offer Task Master as a hosted service
-- Create competing products based on Task Master
+### This Fork
 
-See the [LICENSE](LICENSE) file for the complete license text and [licensing details](docs/licensing.md) for more information.
+**Warp Task Master** maintained by:
+- [@TheLazyIndianTechie](https://github.com/TheLazyIndianTechie) - Warp enhancements
+
+**Special thanks** to the Warp team for building an amazing terminal with AI integration!
+
+---
+
+## 🔗 Links
+
+- **Original Project**: [task-master-ai](https://github.com/eyaltoledano/claude-task-master)
+- **Documentation**: [docs.task-master.dev](https://docs.task-master.dev)
+- **Warp**: [warp.dev](https://warp.dev)
+- **npm Package**: [warp-task-master](https://www.npmjs.com/package/warp-task-master)
+
+---
+
+<p align="center">
+Made with ❤️ for the Warp community
+</p>

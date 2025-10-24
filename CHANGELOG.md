@@ -4,6 +4,29 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
+## Unreleased - Documentation Cleanup
+
+**📚 MAJOR DOCUMENTATION OVERHAUL**: Streamlined README to focus on Warp-specific features
+
+### Changed
+- **COMPLETE REWRITE**: README.md now focuses exclusively on Warp AI enhancements
+- **CLEARER VALUE PROP**: Immediately shows why this fork exists (human-readable profiles, team configs)
+- **STREAMLINED**: Reduced from 544 lines to ~400 lines by removing generic task-master content
+- **BETTER NAVIGATION**: Clear links to original project documentation for non-Warp features
+- **WARP-FIRST**: All examples and quick start guide now use Warp AI profiles
+
+### Added
+- `README-original.md` - Archived original README for reference
+- Prominent credit section for original task-master-ai project
+- Direct links to original project documentation
+- Warp-specific tips and troubleshooting section
+
+### Rationale
+The previous README was 90% generic task-master content that's already well-documented in the original project.
+This fork exists for **Warp-specific enhancements**, so the documentation should reflect that focus.
+
+---
+
 ## 1.0.0-beta.6 - Fix warp-profiles Command Import (2025-01-24)
 
 **🐛 HOTFIX: Fixed remaining warp-profiles command import issues**
