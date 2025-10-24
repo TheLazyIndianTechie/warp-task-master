@@ -1,6 +1,6 @@
 {
 	"name": "warp-task-master",
-	"version": "1.0.0-beta.7",
+	"version": "1.0.0-beta.8",
 	"description": "BETA: Experimental Task Master fork with Warp AI integration and human-readable profile names. For production use, see task-master-ai.",
 	"main": "index.js",
 	"type": "module",
@@ -134,12 +134,11 @@
 	},
 	"files": [
 		"dist/**",
-		"README_NPM.md",
+		"README.md",
 		"CHANGELOG.md",
 		"LICENSE",
 		"scripts/init.js"
 	],
-	"readme": "README_NPM.md",
 	"overrides": {
 		"node-fetch": "^2.6.12",
 		"whatwg-url": "^11.0.0"

@@ -70,6 +70,8 @@ bun.lockb
 *.md
 !README.md
 !CHANGELOG.md
+README_GITHUB.md
+README-original.md
 
 # Temporary files
 .tmp/
