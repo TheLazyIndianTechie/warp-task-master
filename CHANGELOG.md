@@ -4,7 +4,7 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
-## Unreleased - Documentation Cleanup & NPM Documentation
+## 1.0.0-beta.7 - Documentation Cleanup & NPM Documentation (2025-01-24)
 
 **📚 MAJOR DOCUMENTATION OVERHAUL + PUBLIC NPM DOCUMENTATION**: Streamlined GitHub README and created separate NPM-specific docs
 
