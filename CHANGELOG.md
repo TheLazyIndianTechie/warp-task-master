@@ -4,6 +4,52 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
+## 1.0.0-beta.4 - Warp JSON Parsing & Timeout Fixes (2025-01-24)
+
+**🐛 CRITICAL BUG FIX: Warp AI now works correctly with structured object generation**
+
+### Fixed
+#### **JSON Response Parsing (Critical)**
+- **FIXED**: Warp CLI JSON responses were not being correctly parsed, causing "No object generated" errors
+- **ROOT CAUSE**: Warp returns JSON-lines format with multiple events (`{"type":"system"...}` and `{"type":"agent"...}`)
+- **SOLUTION**: Implemented proper JSON-lines parsing to extract agent responses from event stream
+- **MARKDOWN HANDLING**: Enhanced `_extractJson()` to handle Warp's markdown code block format (e.g., ` ```json{...}``` `)
+- **VALIDATION**: Added JSON validation at each extraction step to ensure correctness
+- **DEBUG LOGGING**: Added debug output when JSON extraction fails to help troubleshooting
+
+#### **Timeout Configuration**
+- **FIXED**: Warp CLI command timeout was hardcoded at 60 seconds, causing timeout failures
+- **CONFIGURABLE**: Added `timeout` parameter to WarpSettings (default: 5 minutes / 300000ms)
+- **ERROR MESSAGE**: Improved timeout error messages to show actual timeout duration
+- **BACKWARD COMPATIBLE**: Existing configurations work with new 5-minute default
+
+### Technical Implementation
+**JSON Parsing:**
+- Rewrote `_parseResponse()` to handle Warp's JSON-lines streaming format
+- Improved `_extractJson()` with multiple extraction strategies:
+  1. Markdown code blocks with/without `json` tag
+  2. Raw JSON object matching with validation
+  3. Whole-text JSON parsing
+- Added debug logging to trace JSON extraction failures
+
+**Timeout:**
+- Added `timeout` property to WarpSettings type definition
+- Updated `WarpLanguageModel._executeCommand()` to use configurable timeout
+- Updated `WarpProvider.getClient()` to accept and pass timeout parameter
+- Default increased from 60s to 300s (5 minutes)
+
+### Migration
+- **No action required** - All fixes are backward compatible
+- PRD parsing with Warp now works out of the box
+- To customize timeout: Pass `timeout` option when configuring Warp provider
+
+### Testing
+- ✅ Verified with simple test PRD (2 tasks)
+- ✅ Verified with complex GameSwap PRD (10 tasks, 6925 tokens)
+- ✅ Confirmed task dependencies and priorities generated correctly
+
+---
+
 ## 1.0.0-beta.3 - Warp AI Integration UX Improvements
 
 **🎯 MAJOR UX ENHANCEMENT: Warp AI features are now prominently discoverable!**

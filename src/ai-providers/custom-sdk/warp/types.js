@@ -7,6 +7,7 @@
  * @property {string[]} [mcpServers=[]] - Array of MCP server UUIDs to enable
  * @property {boolean} [debug=false] - Enable debug logging
  * @property {'text'|'json'} [outputFormat='text'] - Output format preference
+ * @property {number} [timeout=300000] - Command timeout in milliseconds (default: 5 minutes)
  */
 
 /**

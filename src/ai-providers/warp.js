@@ -39,6 +39,7 @@ export class WarpProvider extends BaseAIProvider {
 	 * @param {string} [params.cwd] - Working directory
 	 * @param {string[]} [params.mcpServers] - MCP server UUIDs
 	 * @param {boolean} [params.debug] - Enable debug logging
+	 * @param {number} [params.timeout=300000] - Command timeout in milliseconds (default: 5 minutes)
 	 * @returns {Function} Warp client function
 	 * @throws {Error} If initialization fails
 	 */
@@ -70,6 +71,7 @@ export class WarpProvider extends BaseAIProvider {
 				cwd: params.cwd,
 				mcpServers: params.mcpServers || [],
 				debug: params.debug || false,
+				timeout: params.timeout || 300000, // Default to 5 minutes
 			});
 
 			// Return a function that accepts a modelId and returns the Warp model instance

@@ -1,6 +1,6 @@
 {
 	"name": "warp-task-master",
-	"version": "1.0.0-beta.3",
+	"version": "1.0.0-beta.4",
 	"description": "BETA: Experimental Task Master fork with Warp AI integration and human-readable profile names. For production use, see task-master-ai.",
 	"main": "index.js",
 	"type": "module",
@@ -8,7 +8,11 @@
 		"warp-task-master": "dist/task-master.js",
 		"warp-task-master-mcp": "dist/mcp-server.js"
 	},
-	"workspaces": ["apps/*", "packages/*", "."],
+	"workspaces": [
+		"apps/*",
+		"packages/*",
+		"."
+	],
 	"scripts": {
 		"build": "npm run build:build-config && cross-env NODE_ENV=production tsdown",
 		"dev": "tsdown --watch",
@@ -114,7 +118,11 @@
 		"node": ">=18.0.0",
 		"npm": ">=8.0.0"
 	},
-	"os": ["darwin", "linux", "win32"],
+	"os": [
+		"darwin",
+		"linux",
+		"win32"
+	],
 	"packageManager": "npm@10.9.2",
 	"repository": {
 		"type": "git",

@@ -84,6 +84,18 @@ export class WarpLanguageModel {
 			let parsedText = text;
 			if (mode?.type === 'object-json') {
 				parsedText = this._extractJson(text);
+				
+				// Debug: log if extraction didn't produce valid JSON
+				if (this.settings.debug) {
+					try {
+						JSON.parse(parsedText);
+					} catch (e) {
+						console.error('[Warp JSON Extraction Failed]');
+						console.error('Raw response:', text.substring(0, 500));
+						console.error('Extracted:', parsedText.substring(0, 500));
+						console.error('Parse error:', e.message);
+					}
+				}
 			}
 
 			return {
@@ -206,10 +218,11 @@ export class WarpLanguageModel {
 			});
 
 			// Add a timeout to detect if the process is hanging
+			const timeoutMs = this.settings.timeout || 300000; // Default to 5 minutes
 			const timeout = setTimeout(() => {
 				child.kill();
-				reject(new Error('Warp CLI command timed out after 60 seconds'));
-			}, 60000);
+				reject(new Error(`Warp CLI command timed out after ${timeoutMs / 1000} seconds`));
+			}, timeoutMs);
 
 			child.on('close', () => {
 				clearTimeout(timeout);
@@ -218,40 +231,59 @@ export class WarpLanguageModel {
 	}
 
 	_parseResponse(response, outputFormat) {
-		// Extract debug ID from first line
-		const lines = response.split('\n');
-		const debugIdLine = lines[0];
-		const debugId = debugIdLine.match(/debug ID: ([a-f0-9-]+)/)?.[1];
-
-		// Remove first two lines (debug ID and empty line)
-		let text = lines.slice(2).join('\n').trim();
+		const lines = response.split('\n').filter(line => line.trim());
+		
+		let debugId;
+		let text = '';
 
 		if (outputFormat === 'json') {
-			// Warp CLI wraps JSON responses in {"type":"agent","text":"..."}
-			// We need to unwrap this and parse the inner text
-			try {
-				const jsonResponse = JSON.parse(text);
-				if (jsonResponse.type === 'agent' && jsonResponse.text) {
-					// The text property contains the actual response
-					// It might be escaped JSON or plain text
-					text = jsonResponse.text;
+			// Warp CLI returns JSON-lines format with multiple events
+			// We need to find the "agent" type event with the actual response
+			for (const line of lines) {
+				try {
+					const parsed = JSON.parse(line);
 					
-					// Try to parse it as JSON to unescape if needed
-					try {
-						// If it's a JSON string, parse it to get the actual content
-						const parsed = JSON.parse(text);
-						// If parsing succeeded, use the stringified version (unescaped)
-						text = JSON.stringify(parsed);
-					} catch {
-						// Not JSON, use as-is
+					// Extract conversation_id from system event if available
+					if (parsed.type === 'system' && parsed.conversation_id) {
+						debugId = parsed.conversation_id;
 					}
-					return { text, debugId };
+					
+					// Extract text from agent event
+					if (parsed.type === 'agent' && parsed.text) {
+						text = parsed.text;
+						break;
+					}
+				} catch (e) {
+					// Not valid JSON, might be debug line or other output
+					const debugMatch = line.match(/debug ID: ([a-f0-9-]+)/);
+					if (debugMatch) {
+						debugId = debugMatch[1];
+					}
 				}
-				// If it's not the expected wrapper format, use the original text
-				return { text, debugId };
-			} catch {
-				// Fallback if JSON parsing fails
-				return { text, debugId };
+			}
+			
+			if (!text) {
+				// Fallback: use all non-JSON lines as text
+				text = lines
+					.filter(line => {
+						try {
+							JSON.parse(line);
+							return false;
+						} catch {
+							return !line.startsWith('debug ID:');
+						}
+					})
+					.join('\n');
+			}
+		} else {
+			// For text format, extract debug ID and use remaining text
+			const debugMatch = response.match(/debug ID: ([a-f0-9-]+)/);
+			if (debugMatch) {
+				debugId = debugMatch[1];
+				// Remove debug line
+				text = response.replace(/debug ID: [a-f0-9-]+\n/, '').trim();
+			} else {
+				text = response.trim();
 			}
 		}
 
@@ -259,18 +291,43 @@ export class WarpLanguageModel {
 	}
 
 	_extractJson(text) {
-		// Extract JSON from markdown code blocks
-		const jsonMatch = text.match(/```json\s*([\s\S]*?)\s*```/);
-		if (jsonMatch) {
-			return jsonMatch[1].trim();
+		// First, try to extract from markdown code blocks (common Warp format)
+		// Handles: ```json{...}``` or ```json\n{...}\n```
+		const markdownMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+		if (markdownMatch) {
+			const extracted = markdownMatch[1].trim();
+			// Verify it's valid JSON before returning
+			try {
+				JSON.parse(extracted);
+				return extracted;
+			} catch (e) {
+				// Continue to other methods if not valid JSON
+			}
 		}
 
-		// Try to find raw JSON
+		// Try to find raw JSON object
+		// Use a more robust regex that matches balanced braces
 		const jsonObjectMatch = text.match(/\{[\s\S]*\}/);
 		if (jsonObjectMatch) {
-			return jsonObjectMatch[0];
+			const extracted = jsonObjectMatch[0];
+			// Verify it's valid JSON
+			try {
+				JSON.parse(extracted);
+				return extracted;
+			} catch (e) {
+				// Continue if not valid
+			}
 		}
 
+		// Try to parse the entire text as JSON
+		try {
+			JSON.parse(text);
+			return text;
+		} catch (e) {
+			// Not valid JSON
+		}
+
+		// Last resort: return as-is and let caller handle the error
 		return text;
 	}
 
