@@ -4,6 +4,25 @@
 
 > ⚠️ **BETA SOFTWARE**: This is experimental software with potential bugs. For production use, install the stable [task-master-ai](https://github.com/eyaltoledano/claude-task-master).
 
+## 1.0.0-beta.5 - Fix warp-profiles Command (2025-01-24)
+
+**🐛 HOTFIX: Fixed warp-profiles command module resolution**
+
+### Fixed
+- **CRITICAL**: Fixed "Cannot find module" error when running `warp-profiles` command
+- **ROOT CAUSE**: Dynamic import was trying to load from source directory (`src/`) which doesn't exist in npm package
+- **SOLUTION**: 
+  - Exported profile-mapper functions from `src/ai-providers/index.js`
+  - Updated dynamic import to use bundled module path
+  - Profile functions now correctly bundled and accessible
+
+### Technical Changes
+- Added exports for `getProfileMap`, `profileNameToId`, `profileIdToName` to ai-providers index
+- Updated `scripts/modules/commands.js` to import from bundled location
+- Verified `warp-profiles` command works in production build
+
+---
+
 ## 1.0.0-beta.4 - Warp JSON Parsing & Timeout Fixes (2025-01-24)
 
 **🐛 CRITICAL BUG FIX: Warp AI now works correctly with structured object generation**

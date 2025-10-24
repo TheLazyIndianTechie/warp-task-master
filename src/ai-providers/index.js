@@ -18,3 +18,4 @@ export { ClaudeCodeProvider } from './claude-code.js';
 export { GeminiCliProvider } from './gemini-cli.js';
 export { GrokCliProvider } from './grok-cli.js';
 export { WarpProvider } from './warp.js';
+export { getProfileMap, profileNameToId, profileIdToName } from './custom-sdk/warp/profile-mapper.js';

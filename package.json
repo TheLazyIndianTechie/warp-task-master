@@ -1,6 +1,6 @@
 {
 	"name": "warp-task-master",
-	"version": "1.0.0-beta.4",
+	"version": "1.0.0-beta.5",
 	"description": "BETA: Experimental Task Master fork with Warp AI integration and human-readable profile names. For production use, see task-master-ai.",
 	"main": "index.js",
 	"type": "module",

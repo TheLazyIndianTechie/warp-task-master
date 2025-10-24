@@ -319,7 +319,8 @@ async function runInteractiveSetup(projectRoot) {
 		// Try to get Warp profiles and create Warp options
 		let warpOptions = [];
 		try {
-			const { getProfileMap } = await import('../../../src/ai-providers/custom-sdk/warp/profile-mapper.js');
+			// Import from the bundled ai-providers module
+			const { getProfileMap } = await import('../../src/ai-providers/index.js');
 			const profileMap = getProfileMap();
 			
 			warpOptions = Object.entries(profileMap).map(([id, name]) => ({
